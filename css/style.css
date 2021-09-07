@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+button, select {
+    outline: none;
+}
+
+.toolbar-section {
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+    .toolbar-section button {
+        border-radius: 100%;
+        border: none;
+        background: none;
+        color: #fff;
+        margin: 1em;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 50%;
+    }
+
+    select {
+        border-radius: 0%;
+        width: auto;
+        border: none;
+        background: none;
+        color: #fff;
+        margin: 1em;
+        opacity: 50%;
+        padding: .5em;
+        border-radius: 10px;
+    }
+    
+    .toolbar-section button:hover {
+        opacity: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+    }
+    
+    #btn-color, select {
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    #btn-color::-webkit-color-swatch {
+        margin: -.6em;
+    }
+
+.canvas-section {
+    width: 100%;
+    height: 100%;
+    background-color: #777;
+}
+
+#canvas {
+    background-color: #444;
+}
