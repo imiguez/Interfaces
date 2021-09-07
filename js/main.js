@@ -24,7 +24,7 @@ class Main {
         this.#canvas = new Canvas();
         this.#ctx = this.#canvas.getContext();
         // ToolBar
-        new ToolBar();
+        new ToolBar(this.#canvas.getCanvas());
         // pen
         this.#pen = new Pen(this.#ctx);
         this.#pen.setMode("draw");

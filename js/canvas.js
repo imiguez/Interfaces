@@ -9,6 +9,10 @@ export default class Canvas {
         this.createNewCanvas();
     }
 
+    getCanvas() {
+        return this.#canvas;
+    }
+
     getContext() {
         return this.#context;
     }
