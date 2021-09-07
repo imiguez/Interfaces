@@ -1,6 +1,7 @@
 import Color from "./color.js";
 export default class Pen {
 
+    #pen = document.getElementById('btn-pen');
     #ctx;
     #mode;
     #colorObj;
@@ -18,9 +19,9 @@ export default class Pen {
         this.#mode = mode;
         switch (this.#mode) {
             case "draw":
-                document.getElementById('btn-pen').onclick = () => this.draw(); break;
+                this.#pen.onclick = () => this.draw(); break;
             case "paint":
-                document.getElementById('btn-pen').onclick = () => this.paint(); break;
+                this.#pen.onclick = () => this.paint(); break;
         }
     }
     
@@ -40,7 +41,7 @@ export default class Pen {
         this.#ctx.fillRect(0, 0, this.#ctx.canvas.attributes.width.value / 3, this.#ctx.canvas.attributes.height.value / 3);
         this.#ctx.stroke();
     }
-    
+
     paint() {
         this.#ctx.beginPath();
         this.setColor();
