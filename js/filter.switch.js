@@ -26,7 +26,6 @@ export default class FilterSwitch {
         let dataImg = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
         for (let x = 0; x < this.#ctx.canvas.width; x++) {
             for (let y = 0; y < this.#ctx.canvas.height; y++) {
-                // calculo el color gris del pixel
                 let grey = (this.getRed(dataImg, x, y) + this.getBlue(dataImg, x, y) + this.getGreen(dataImg, x, y)) / 3;
                 let index = (x + y * dataImg.width) * 4;
                 dataImg.data[index + 0] = grey;

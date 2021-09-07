@@ -2,6 +2,7 @@ import Canvas from "./canvas.js";
 import Pen from "./pen.js";
 import ImageButton from "./image.button.js";
 import FilterSwitch from "./filter.switch.js";
+import ToolBar from "./toolbar.js";
 
 const initApp = () => {
     document.addEventListener('DOMContentLoaded', () => {
@@ -22,6 +23,8 @@ class Main {
         // canvas
         this.#canvas = new Canvas();
         this.#ctx = this.#canvas.getContext();
+        // ToolBar
+        new ToolBar();
         // pen
         this.#pen = new Pen(this.#ctx);
         this.#pen.setMode("draw");
