@@ -50,7 +50,21 @@ export default class FilterSwitch {
         return imageData.data[index + 2];
     }
 
-    drawNegativoFilter() { }
+    drawNegativoFilter() {
+        let imageData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
+        let pixels = imageData.data;
+        let numPixels = imageData.width * imageData.height;
+        for (let i = 0; i < numPixels; i++) {
+            let r = pixels[i * 4];
+            let g = pixels[i * 4 + 1];
+            let b = pixels[i * 4 + 2];
+            pixels[i * 4] = 255 - r;
+            pixels[i * 4 + 1] = 255 - g;
+            pixels[i * 4 + 2] = 255 - b;
+        }
+        this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
+    }
+
     drawBrilloFilter() { }
     drawBinarizacionFilter() { }
     drawSaturacionFilter() { }
