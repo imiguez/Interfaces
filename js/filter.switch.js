@@ -11,12 +11,13 @@ export default class FilterSwitch {
 
     setFilter() {
         switch (document.getElementById('filter-select').value) {
-            case "sepia": this.drawSepiaFilter(); break;
-            case "negativo": this.drawNegativoFilter(); break;
-            case "brillo": this.drawBrilloFilter(); break;
-            case "binarizacion": this.drawBinarizacionFilter(); break;
-            case "saturacion": this.drawSaturacionFilter(); break;
-            case "bordes": this.drawBordesFilter(); break;
+            case "sepia": this.drawSepiaFilter(); break; // gaspar
+            case "negativo": this.drawNegativoFilter(); break; // gaspar
+            case "brillo": this.drawBrilloFilter(); break; // ignacio
+            case "binarizacion": this.drawBinarizacionFilter(); break; // ignacio
+
+            case "saturacion": this.drawSaturacionFilter(); break; // gaspar
+            case "bordes": this.drawBordesFilter(); break; // ignacio
             case "blur": this.drawBlurFilter(); break;
         }
     }
@@ -26,7 +27,7 @@ export default class FilterSwitch {
         for (let x = 0; x < this.#ctx.canvas.width; x++) {
             for (let y = 0; y < this.#ctx.canvas.height; y++) {
                 // calculo el color gris del pixel
-                let grey = (this.getRed(dataImg, x, y) + this.getBlue(dataImg, x, y) + this.getGreen(dataImg, x, y)) / 3
+                let grey = (this.getRed(dataImg, x, y) + this.getBlue(dataImg, x, y) + this.getGreen(dataImg, x, y)) / 3;
                 let index = (x + y * dataImg.width) * 4;
                 dataImg.data[index + 0] = grey;
                 dataImg.data[index + 1] = grey;
