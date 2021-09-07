@@ -10,10 +10,16 @@ export default class ImageButton {
 
     uploadImage() {
         this.#image = new Image();
-        this.#image.src = "https://i.pinimg.com/originals/02/8f/a3/028fa3fc63d343a6f349c46ea339d5b8.jpg";
+        this.#image.src = "./img/tomandjerry.jpg";
         this.#image.onload = () => {
-            this.#ctx.drawImage(this.#image, 0, 0);
+            this.#ctx.drawImage(this.#image, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
         }
+    }
+
+    getImage() {
+        this.#image = new Image();
+        this.#image.src = "./img/tomandjerry.jpg";
+        return this.#image;
     }
 
 }

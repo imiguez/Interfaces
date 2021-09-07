@@ -24,9 +24,10 @@ export default class Pen {
                 this.#pen.onclick = () => this.paint(); break;
         }
     }
-    
+
     setColor() {
-        this.#colorObj.setColor(document.getElementById('btn-color').value);
+        let colorHex = document.getElementById('btn-color').value;
+        this.#colorObj.setColor(colorHex);
         this.#color = this.#colorObj.getColor();
     }
 
@@ -38,7 +39,7 @@ export default class Pen {
         this.#ctx.beginPath();
         this.setColor();
         this.#ctx.fillStyle = `rgb(${this.#color.rgb.r}, ${this.#color.rgb.g}, ${this.#color.rgb.b})`;
-        this.#ctx.fillRect(0, 0, this.#ctx.canvas.attributes.width.value / 3, this.#ctx.canvas.attributes.height.value / 3);
+        this.#ctx.fillRect(0, 0, this.#ctx.canvas.width / 3, this.#ctx.canvas.height / 3);
         this.#ctx.stroke();
     }
 

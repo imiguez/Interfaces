@@ -1,6 +1,7 @@
 import Canvas from "./canvas.js";
 import Pen from "./pen.js";
 import ImageButton from "./image.button.js";
+import FilterSwitch from "./filter.switch.js";
 
 const initApp = () => {
     document.addEventListener('DOMContentLoaded', () => {
@@ -28,6 +29,8 @@ class Main {
         document.getElementById('btn-newCanvas').onclick = () => this.#canvas.createNewCanvas();
         // new image
         this.#imageBtn = new ImageButton(this.#ctx);
+        // filters
+        new FilterSwitch(this.#imageBtn.getImage(), this.#ctx);
     }
 
 }
