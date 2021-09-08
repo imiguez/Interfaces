@@ -1,12 +1,22 @@
 export default class Canvas {
     
-    #environment;
+    #env;
     #canvasEl;
     #canvas;
-    #context;
+    #ctx;
+    #width = window.innerWidth;
+    #height = window.innerHeight;
 
     constructor() {
-        this.createNewCanvas();
+        this.#env = document.querySelector('.canvas-section');
+        this.#canvasEl = document.createElement('canvas');
+        this.#env.appendChild(this.#canvasEl);
+        this.#canvasEl.id = 'canvas';
+        
+        this.#canvas = document.getElementById('canvas');
+        this.#canvas.width = this.#width;
+        this.#canvas.height = this.#height;
+        this.#ctx = this.#canvas.getContext("2d");
     }
 
     getCanvas() {
@@ -14,21 +24,11 @@ export default class Canvas {
     }
 
     getContext() {
-        return this.#context;
+        return this.#ctx;
     }
 
-    createNewCanvas() {
-        this.#environment = document.querySelector('.canvas-section');
-        this.#environment.innerHTML = ''
-        
-        this.#canvasEl = document.createElement('canvas');
-        this.#environment.appendChild(this.#canvasEl);
-        this.#canvasEl.id = 'canvas';
-        
-        this.#canvas = document.getElementById('canvas');
-        this.#canvas.width = window.innerWidth;
-        this.#canvas.height = window.innerHeight;
-        this.#context = this.#canvas.getContext("2d");
+    clearCanvas() {
+        this.#ctx.clearRect(0, 0, this.#width, this.#height);
     }
 
 }

@@ -10,8 +10,13 @@ main {
     justify-content: center;
 }
 
-button, select {
+button, select, input {
     outline: none;
+}
+
+button:hover, select:hover, input:hover {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .toolbar-section {
