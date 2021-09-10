@@ -78,7 +78,10 @@ export default class FilterSwitch {
                 let g = this.getGreen(imageData, x, y);
                 let b = this.getBlue(imageData, x, y);
                 let avg = Math.round((r + g + b)/3);
-                this.setPixel(imageData, x, y, avg, avg, avg);
+                let rgbValue = 0;
+                if (avg > 255/2)
+                    rgbValue = 255;
+                this.setPixel(imageData, x, y, rgbValue, rgbValue, rgbValue);
             }
         }
         this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
