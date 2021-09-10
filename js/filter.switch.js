@@ -18,8 +18,10 @@ export default class FilterSwitch {
             case "escala-grises": this.drawGreyScaleFilter(); break; // ignacio
 
             case "saturacion": this.drawSaturacionFilter(); break; // gaspar
-            case "bordes-horizontal": this.drawHorizontalBorderFilter(); break; // ignacio
-            case "bordes-vertical": this.drawVerticalBorderFilter(); break; // ignacio
+            case "bordes-horizontal-blanco": this.drawWhiteHorizontalBorderFilter(); break; // ignacio
+            case "bordes-horizontal-negro": this.drawHorizontalBorderFilter(); break; // ignacio
+            case "bordes-vertical-blanco": this.drawWhiteVerticalBorderFilter(); break; // ignacio
+            case "bordes-vertical-negro": this.drawVerticalBorderFilter(); break; // ignacio
             case "blur": this.drawBlurFilter(); break;
         }
     }
@@ -104,6 +106,7 @@ export default class FilterSwitch {
     }
 
     drawBorderFilter(mat) { // Se le puede mandar una matriz horizontal o vertical
+        this.drawGreyScaleFilter();
         let originImgData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
         let finalImgData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
         for (let x = 1; x <= originImgData.width; x++) {
@@ -171,6 +174,16 @@ export default class FilterSwitch {
         let matHorizontal = [[-1, 0 , 1], [-2, 0, 2], [-1, 0, 1]];
         this.drawBorderFilter(matHorizontal);
     }
+    drawWhiteHorizontalBorderFilter() {
+        this.drawHorizontalBorderFilter();
+        this.drawNegativoFilter();
+    }
+
+    drawWhiteVerticalBorderFilter() {
+        this.drawVerticalBorderFilter();
+        this.drawNegativoFilter();
+    }
+
     drawVerticalBorderFilter() {
         let matVertical = [[-1, -2 , -1], [0, 0, 0], [1, 2, 1]];
         this.drawBorderFilter(matVertical);
