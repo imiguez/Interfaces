@@ -13,8 +13,8 @@ export default class FilterSwitch {
         switch (document.getElementById('filter-select').value) {
             case "sepia": this.drawSepiaFilter(); break; // gaspar
             case "negativo": this.drawNegativoFilter(); break; // gaspar
-            case "brillo": this.drawBrilloFilter(20); break; // ignacio
-            case "binarizacion": this.drawBinarizacionFilter(); break; // ignacio
+            case "brillo": this.drawBrightFilter(20); break; // ignacio
+            case "binarizacion": this.drawBinarizationFilter(); break; // ignacio
 
             case "saturacion": this.drawSaturacionFilter(); break; // gaspar
             case "bordes": this.drawBordesFilter(); break; // ignacio
@@ -57,19 +57,32 @@ export default class FilterSwitch {
         this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
     }
     
-    drawBrilloFilter(bright = 0) { // En un futuro puede ser dinamico
+    drawBrightFilter(bright = 0) { // En un futuro puede ser dinamico
         let imageData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
-        for (let x = 0; x < imageData.width; x++) {
-            for (let y = 0; y < imageData.height; y++) {
+        for (let x = 1; x <= imageData.width; x++) {
+            for (let y = 1; y <= imageData.height; y++) {
                 let hsb = this.RGBToHSB(this.getRed(imageData, x, y), this.getGreen(imageData, x, y), this.getBlue(imageData, x, y))
                 hsb[2] += bright;
                 let rgb = this.HSBToRGB(hsb[0], hsb[1], hsb[2]);
-                this.setPixel(imageData, x, y, rgb[0], rgb[1], rgb[2], 255);
+                this.setPixel(imageData, x, y, rgb[0], rgb[1], rgb[2]);
             }
         }
         this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
     }
-    drawBinarizacionFilter() { }
+
+    drawBinarizationFilter() {
+        let imageData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
+        for (let x = 1; x <= imageData.width; x++) {
+            for (let y = 1; y <= imageData.height; y++) {
+                let r = this.getRed(imageData, x, y);
+                let g = this.getGreen(imageData, x, y);
+                let b = this.getBlue(imageData, x, y);
+                let avg = Math.round((r + g + b)/3);
+                this.setPixel(imageData, x, y, avg, avg, avg);
+            }
+        }
+        this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
+    }
     drawSaturacionFilter() { }
     drawBordesFilter() { }
     
@@ -116,7 +129,7 @@ export default class FilterSwitch {
         return imageData.data[index + 2];
     }
 
-    setPixel(imageData, x, y, r, g, b, a) {
+    setPixel(imageData, x, y, r, g, b, a = 255) {
         let index = (x + y * imageData.width) * 4;
         imageData.data[index+0] = r;
         imageData.data[index+1] = g;
