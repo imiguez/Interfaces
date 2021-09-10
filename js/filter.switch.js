@@ -42,18 +42,26 @@ export default class FilterSwitch {
         this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
     }
 
-    // getRed(imageData, x, y) {
-    //     let index = (x + y * imageData.width) * 4;
-    //     return imageData.data[index + 0];
-    // }
-    // getGreen(imageData, x, y) {
-    //     let index = (x + y * imageData.width) * 4;
-    //     return imageData.data[index + 1];
-    // }
-    // getBlue(imageData, x, y) {
-    //     let index = (x + y * imageData.width) * 4;
-    //     return imageData.data[index + 2];
-    // }
+    getRed(imageData, x, y) {
+        let index = (x + y * imageData.width) * 4;
+        return imageData.data[index + 0];
+    }
+    getGreen(imageData, x, y) {
+        let index = (x + y * imageData.width) * 4;
+        return imageData.data[index + 1];
+    }
+    getBlue(imageData, x, y) {
+        let index = (x + y * imageData.width) * 4;
+        return imageData.data[index + 2];
+    }
+
+    setPixel(imageData, x, y, r, g, b, a) {
+        let index = (x + y * imageData) * 4;
+        imageData.data[index] = r;
+        imageData.data[index+1] = g;
+        imageData.data[index+2] = b;
+        imageData.data[index+3] = a;
+    }
 
     drawNegativoFilter() {
         let imageData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
@@ -69,8 +77,54 @@ export default class FilterSwitch {
         }
         this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
     }
+    
+    RGBToHSB = (r, g, b) => {
+        r /= 255;
+        g /= 255;
+        b /= 255;
+        const v = Math.max(r, g, b),
+          n = v - Math.min(r, g, b);
+        const h =
+          n === 0 ? 0 : n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;
+        return [60 * (h < 0 ? h + 6 : h), v && (n / v) * 100, v * 100];
+    };
 
-    drawBrilloFilter() { }
+    HSBToRGB = (h, s, b) => {
+        s /= 100;
+        b /= 100;
+        const k = (n) => (n + h / 60) % 6;
+        const f = (n) => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
+        return [255 * f(5), 255 * f(3), 255 * f(1)];
+    };
+    
+/* 
+function drawBrilloFilter(bright) {
+    for (let x = 0; x < imageData.width; x++) {
+        for (let y = 0; y < imageData.height; y++) {
+            let hsb = RGBToHSB(getRed(imageData, x, y), getGreen(imageData, x, y), getBlue(imageData, x, y))
+            hsb[2] += bright;
+            let rgb = HSBToRGB(hsb[0], hsb[1], hsb[2]);
+            setPixel(imageData, x, y, rgb[0], rgb[1], rgb[2], 255);
+        }
+    }
+    ctx.putImageData(imageData, 0, 0);
+}
+*/
+
+    drawBrilloFilter() {
+        let imageData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
+        for (let x = 0; x < imageData.width; x++) {
+            for (let y = 0; y < imageData.height; y++) {
+                let hsb = this.RGBToHSB(this.getRed(imageData, x, y), this.getGreen(imageData, x, y), this.getBlue(imageData, x, y))
+                hsb[2] = 50;
+                let rgb = this.HSBToRGB(hsb[0], hsb[1], hsb[2]);
+                this.setPixel(imageData, x, y, rgb[0], rgb[1], rgb[2], 255);
+            }
+        }
+        this.#ctx.putImageData(imageData, imageData.width/2, imageData.height/2);
+        //RGBToHSB(252, 111, 48);
+          // [18.529411764705856, 80.95238095238095, 98.82352941176471]
+    }
     drawBinarizacionFilter() { }
     drawSaturacionFilter() { }
     drawBordesFilter() { }
