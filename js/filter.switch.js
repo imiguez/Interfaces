@@ -15,6 +15,7 @@ export default class FilterSwitch {
             case "negativo": this.drawNegativoFilter(); break; // gaspar
             case "brillo": this.drawBrightFilter(20); break; // ignacio
             case "binarizacion": this.drawBinarizationFilter(); break; // ignacio
+            case "escala-grises": this.drawGreyScaleFilter(); break; // ignacio
 
             case "saturacion": this.drawSaturacionFilter(); break; // gaspar
             case "bordes-horizontal": this.drawHorizontalBorderFilter(); break; // ignacio
@@ -71,6 +72,20 @@ export default class FilterSwitch {
         this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
     }
 
+    drawGreyScaleFilter() {
+        let imageData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
+        for (let x = 1; x <= imageData.width; x++) {
+            for (let y = 1; y <= imageData.height; y++) {
+                let r = this.getRed(imageData, x, y);
+                let g = this.getGreen(imageData, x, y);
+                let b = this.getBlue(imageData, x, y);
+                let avg = Math.round((r + g + b)/3);
+                this.setPixel(imageData, x, y, avg, avg, avg);
+            }
+        }
+        this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
+    }
+
     drawBinarizationFilter() {
         let imageData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
         for (let x = 1; x <= imageData.width; x++) {
@@ -91,8 +106,8 @@ export default class FilterSwitch {
     drawBorderFilter(mat) { // Se le puede mandar una matriz horizontal o vertical
         let originImgData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
         let finalImgData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
-        for (let x = 0; x < originImgData.width; x++) {
-            for (let y = 0; y < originImgData.height; y++) {
+        for (let x = 1; x <= originImgData.width; x++) {
+            for (let y = 1; y <= originImgData.height; y++) {
                 let sumR = 0;
                 let sumG = 0;
                 let sumB = 0;
