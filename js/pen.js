@@ -6,13 +6,44 @@ export default class Pen {
     #mode;
     #colorObj;
     #color;
+    #painting = false;
+    #thickness = 1; //default
 
-    constructor(ctx) {
+    constructor(ctx, canvas) {
         this.#ctx = ctx;
-        document.getElementById('mode-select').onchange = () => {
-            this.setMode(document.getElementById('mode-select').value);
-        }
+        // comente esto porque me tiraba error y no se bien que era jeje
+        // document.getElementById('mode-select').onchange = () => {
+        //     this.setMode(document.getElementById('mode-select').value);
+        // }
         this.#colorObj = new Color();
+        document.getElementById("pen-thickness").onchange = () => {
+            this.#thickness = document.getElementById("pen-thickness").value * 2;
+        }
+        canvas.getCanvas().onmousedown = () => {this.preparePainting()};
+        canvas.getCanvas().onmousemove = (e) => {this.startPainting(e)};
+        canvas.getCanvas().onmouseup = () => {this.stopPainting()};
+    }
+
+    preparePainting() {
+        this.#color = document.getElementById("btn-color").value;
+        this.#ctx.beginPath();
+        this.#painting = true;
+        this.#ctx.strokeStyle = this.#color;
+        this.#ctx.lineWidth = this.#thickness;    
+    }
+
+    startPainting(e) {
+        if (this.#painting) {
+            this.#ctx.lineCap = "round";
+            this.#ctx.lineTo(e.offsetX, e.offsetY);
+            this.#ctx.stroke();
+            this.#ctx.moveTo(e.offsetX, e.offsetY); 
+        }
+    }
+
+    stopPainting() {
+        this.#ctx.closePath();
+        this.#painting = false;
     }
 
     setMode(mode) {

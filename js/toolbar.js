@@ -12,7 +12,7 @@ export default class ToolBar {
     constructor(canvas, ctx) {
         this.setMotion();
         // btn Pen
-        this.#pen = new Pen(ctx);
+        this.#pen = new Pen(ctx, canvas);
         this.#pen.setMode("draw");
         // btn Save
         new SaveButton(canvas.getCanvas());
