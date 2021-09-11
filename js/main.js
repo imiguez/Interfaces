@@ -1,12 +1,7 @@
 import Canvas from "./canvas.js";
 import ToolBar from "./toolbar.js";
 
-const initApp = () => {
-    document.addEventListener('DOMContentLoaded', () => {
-        new Main();
-    });
-}
-
+const initApp = () => document.addEventListener('DOMContentLoaded', () => new Main());
 initApp();
 
 class Main {

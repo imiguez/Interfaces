@@ -10,7 +10,6 @@ export default class ToolBar {
     #imageBtn;
 
     constructor(canvas, ctx) {
-        this.setMotion();
         // btn Pen
         this.#pen = new Pen(ctx);
         this.#pen.setMode("draw");
@@ -22,19 +21,6 @@ export default class ToolBar {
         this.#imageBtn = new ImageButton(ctx);
         // btn Filters
         new FilterSwitch(this.#imageBtn.getImage(), ctx);
-    }
-
-    setMotion() {
-        this.#toolBar = document.querySelector('.toolbar-section');
-        this.#toolBar.classList.add('motion-slide-out');
-        this.#toolBar.onmouseenter = () => {
-            this.#toolBar.classList.remove('motion-slide-out');
-            this.#toolBar.classList.add('motion-slide-in');
-        }
-        this.#toolBar.onmouseleave = () => {
-            this.#toolBar.classList.remove('motion-slide-in');
-            this.#toolBar.classList.add('motion-slide-out');
-        }
     }
 
 }
