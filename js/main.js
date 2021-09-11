@@ -11,6 +11,7 @@ class Main {
 
     constructor() {
         this.#canvas = new Canvas();
+        this.#canvas.setCanvasSize({ width: 1200, height: 500 });
         this.#ctx = this.#canvas.getContext();
         new ToolBar(this.#canvas, this.#ctx);
     }
