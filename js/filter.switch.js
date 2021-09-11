@@ -1,33 +1,41 @@
+import ImageButton from "./image.button.js";
 export default class FilterSwitch {
 
     #image;
     #ctx;
+    #canvas;
 
-    constructor(img, ctx) {
+    // constructor(ctx) {
+    //     this.#ctx = ctx;
+    //     document.getElementById('filter-select').onchange = () => this.setFilter();
+    // }
+
+    constructor(img, ctx, canvas) {
+        console.log(img);
         this.#image = img;
         this.#ctx = ctx;
+        this.#canvas = canvas;
         document.getElementById('filter-select').onchange = () => this.setFilter();
     }
 
     setFilter() {
         switch (document.getElementById('filter-select').value) {
-            case "sepia": this.drawSepiaFilter(); break; // gaspar
-            case "negativo": this.drawNegativoFilter(); break; // gaspar
-            case "brillo": this.drawBrightFilter(20); break; // ignacio
-            case "binarizacion": this.drawBinarizationFilter(); break; // ignacio
-            case "escala-grises": this.drawGreyScaleFilter(); break; // ignacio
-
-            case "saturacion": this.drawSaturacionFilter(); break; // gaspar
-            case "bordes-horizontal-blanco": this.drawWhiteHorizontalBorderFilter(); break; // ignacio
-            case "bordes-horizontal-negro": this.drawHorizontalBorderFilter(); break; // ignacio
-            case "bordes-vertical-blanco": this.drawWhiteVerticalBorderFilter(); break; // ignacio
-            case "bordes-vertical-negro": this.drawVerticalBorderFilter(); break; // ignacio
+            case "sepia": this.drawSepiaFilter(); break;
+            case "negativo": this.drawNegativoFilter(); break;
+            case "brillo": this.drawBrightFilter(20); break;
+            case "binarizacion": this.drawBinarizationFilter(); break;
+            case "escala-grises": this.drawGreyScaleFilter(); break;
+            case "saturacion": this.drawSaturacionFilter(); break;
+            case "bordes-horizontal-blanco": this.drawWhiteHorizontalBorderFilter(); break;
+            case "bordes-horizontal-negro": this.drawHorizontalBorderFilter(); break;
+            case "bordes-vertical-blanco": this.drawWhiteVerticalBorderFilter(); break;
+            case "bordes-vertical-negro": this.drawVerticalBorderFilter(); break;
             case "blur": this.drawBlurFilter(); break;
         }
     }
 
     drawSepiaFilter() {
-        let imageData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
+        let imageData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
         let pixels = imageData.data;
         let numPixels = imageData.width * imageData.height;
         for (let i = 0; i < numPixels; i++) {
@@ -43,11 +51,13 @@ export default class FilterSwitch {
             pixels[i * 4 + 1] = (r * .349) + (g * .686) + (b * .168);
             pixels[i * 4 + 2] = (r * .272) + (g * .534) + (b * .131);
         }
-        this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
+        this.#ctx.putImageData(imageData, 0, 0);
     }
     
     drawNegativoFilter() {
-        let imageData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
+        // console.log(this.#image);
+        let imageData = this.#ctx.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
+        // let imageData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
         let pixels = imageData.data;
         let numPixels = imageData.width * imageData.height;
         for (let i = 0; i < numPixels; i++) {
@@ -58,11 +68,11 @@ export default class FilterSwitch {
             pixels[i * 4 + 1] = 255 - g;
             pixels[i * 4 + 2] = 255 - b;
         }
-        this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
+        this.#ctx.putImageData(imageData, 0, 0);
     }
     
     drawBrightFilter(bright = 0) { // En un futuro puede ser dinamico
-        let imageData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
+        let imageData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
         for (let x = 1; x <= imageData.width; x++) {
             for (let y = 1; y <= imageData.height; y++) {
                 let hsb = this.RGBToHSB(this.getRed(imageData, x, y), this.getGreen(imageData, x, y), this.getBlue(imageData, x, y))
@@ -71,11 +81,11 @@ export default class FilterSwitch {
                 this.setPixel(imageData, x, y, rgb[0], rgb[1], rgb[2]);
             }
         }
-        this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
+        this.#ctx.putImageData(imageData, 0, 0);
     }
 
     drawGreyScaleFilter() {
-        let imageData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
+        let imageData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
         for (let x = 1; x <= imageData.width; x++) {
             for (let y = 1; y <= imageData.height; y++) {
                 let r = this.getRed(imageData, x, y);
@@ -85,11 +95,11 @@ export default class FilterSwitch {
                 this.setPixel(imageData, x, y, avg, avg, avg);
             }
         }
-        this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
+        this.#ctx.putImageData(imageData, 0, 0);
     }
 
     drawBinarizationFilter() {
-        let imageData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
+        let imageData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
         for (let x = 1; x <= imageData.width; x++) {
             for (let y = 1; y <= imageData.height; y++) {
                 let r = this.getRed(imageData, x, y);
@@ -102,13 +112,13 @@ export default class FilterSwitch {
                 this.setPixel(imageData, x, y, rgbValue, rgbValue, rgbValue);
             }
         }
-        this.#ctx.putImageData(imageData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
+        this.#ctx.putImageData(imageData, 0, 0);
     }
 
     drawBorderFilter(mat) { // Se le puede mandar una matriz horizontal o vertical
         this.drawGreyScaleFilter();
-        let originImgData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
-        let finalImgData = this.#ctx.getImageData(this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5, this.#image.width, this.#image.height);
+        let originImgData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
+        let finalImgData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
         for (let x = 1; x <= originImgData.width; x++) {
             for (let y = 1; y <= originImgData.height; y++) {
                 let sumR = 0;
@@ -167,7 +177,7 @@ export default class FilterSwitch {
                 this.setPixel(finalImgData, x, y, sumR, sumG, sumB, 255);
             }
         }
-        this.#ctx.putImageData(finalImgData, this.#ctx.canvas.width / 4, this.#ctx.canvas.height / 5);
+        this.#ctx.putImageData(finalImgData, 0, 0);
     }
 
     drawHorizontalBorderFilter() {
