@@ -35,7 +35,7 @@ export default class FilterSwitch {
     }
 
     drawSepiaFilter() {
-        let imageData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
+        let imageData = this.#ctx.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
         let pixels = imageData.data;
         let numPixels = imageData.width * imageData.height;
         for (let i = 0; i < numPixels; i++) {
@@ -55,7 +55,6 @@ export default class FilterSwitch {
     }
     
     drawNegativoFilter() {
-        // console.log(this.#image);
         let imageData = this.#ctx.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
         // let imageData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
         let pixels = imageData.data;
@@ -72,9 +71,9 @@ export default class FilterSwitch {
     }
     
     drawBrightFilter(bright = 0) { // En un futuro puede ser dinamico
-        let imageData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
-        for (let x = 1; x <= imageData.width; x++) {
-            for (let y = 1; y <= imageData.height; y++) {
+        let imageData = this.#ctx.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
+        for (let x = 0; x <= imageData.width; x++) {
+            for (let y = 0; y <= imageData.height; y++) {
                 let hsb = this.RGBToHSB(this.getRed(imageData, x, y), this.getGreen(imageData, x, y), this.getBlue(imageData, x, y))
                 hsb[2] += bright;
                 let rgb = this.HSBToRGB(hsb[0], hsb[1], hsb[2]);
@@ -85,9 +84,9 @@ export default class FilterSwitch {
     }
 
     drawGreyScaleFilter() {
-        let imageData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
-        for (let x = 1; x <= imageData.width; x++) {
-            for (let y = 1; y <= imageData.height; y++) {
+        let imageData = this.#ctx.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
+        for (let x = 0; x <= imageData.width; x++) {
+            for (let y = 0; y <= imageData.height; y++) {
                 let r = this.getRed(imageData, x, y);
                 let g = this.getGreen(imageData, x, y);
                 let b = this.getBlue(imageData, x, y);
@@ -99,9 +98,9 @@ export default class FilterSwitch {
     }
 
     drawBinarizationFilter() {
-        let imageData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
-        for (let x = 1; x <= imageData.width; x++) {
-            for (let y = 1; y <= imageData.height; y++) {
+        let imageData = this.#ctx.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
+        for (let x = 0; x <= imageData.width; x++) {
+            for (let y = 0; y <= imageData.height; y++) {
                 let r = this.getRed(imageData, x, y);
                 let g = this.getGreen(imageData, x, y);
                 let b = this.getBlue(imageData, x, y);
@@ -117,10 +116,10 @@ export default class FilterSwitch {
 
     drawBorderFilter(mat) { // Se le puede mandar una matriz horizontal o vertical
         this.drawGreyScaleFilter();
-        let originImgData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
-        let finalImgData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
-        for (let x = 1; x <= originImgData.width; x++) {
-            for (let y = 1; y <= originImgData.height; y++) {
+        let originImgData = this.#ctx.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
+        let finalImgData = this.#ctx.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
+        for (let x = 0; x <= originImgData.width; x++) {
+            for (let y = 0; y <= originImgData.height; y++) {
                 let sumR = 0;
                 let sumG = 0;
                 let sumB = 0;
@@ -129,49 +128,41 @@ export default class FilterSwitch {
                     sumR += mat[0][2] * this.getRed(originImgData, x+1, y-1);//a1*a2
                     sumG += mat[0][2] * this.getGreen(originImgData, x+1, y-1);//a1*a2
                     sumB += mat[0][2] * this.getBlue(originImgData, x+1, y-1);//a1*a2
-                    //sumA += mat[0][2] * this.getA(originImgData, x+1, y-1);//a1*a2
                 }
                 if (x + 1 <= originImgData.width) { //A la derecha
                     sumR += mat[1][2] * this.getRed(originImgData, x+1, y);//b1*b2
                     sumG += mat[1][2] * this.getGreen(originImgData, x+1, y);//b1*b2
                     sumB += mat[1][2] * this.getBlue(originImgData, x+1, y);//b1*b2
-                    //sumA += mat[1][2] * this.getA(originImgData, x+1, y);//b1*b2
                 }
                 if (y + 1 <= originImgData.height && x + 1 <= originImgData.width) { //Abajo a la derecha
                     sumR += mat[2][2] * this.getRed(originImgData, x+1, y+1);//c1*c2
                     sumG += mat[2][2] * this.getGreen(originImgData, x+1, y+1);//c1*c2
                     sumB += mat[2][2] * this.getBlue(originImgData, x+1, y+1);//c1*c2
-                    //sumA += mat[2][2] * this.getA(originImgData, x+1, y+1);//c1*c2
                 }
                 if (y + 1 <= originImgData.height) { //Abajo
                     sumR += mat[2][1] * this.getRed(originImgData, x, y+1);//d1*d2
                     sumG += mat[2][1] * this.getGreen(originImgData, x, y+1);//d1*d2
                     sumB += mat[2][1] * this.getBlue(originImgData, x, y+1);//d1*d2
-                    //sumA += mat[2][1] * this.getA(originImgData, x, y+1);//d1*d2
                 }
                 if (y + 1 <= originImgData.height && x - 1 >= 0) { //Abajo a la izquierda
                     sumR += mat[2][0] * this.getRed(originImgData, x-1, y+1);//e1*e2
                     sumG += mat[2][0] * this.getGreen(originImgData, x-1, y+1);//e1*e2
                     sumB += mat[2][0] * this.getBlue(originImgData, x-1, y+1);//e1*e2
-                    //sumA += mat[2][0] * this.getA(originImgData, x-1, y+1);//e1*e2
                 }
                 if(x - 1 >= 0) { //A la izquierda
                     sumR += mat[1][0] * this.getRed(originImgData, x-1, y);//f1*f2
                     sumG += mat[1][0] * this.getGreen(originImgData, x-1, y);//f1*f2
                     sumB += mat[1][0] * this.getBlue(originImgData, x-1, y);//f1*f2
-                    //sumA += mat[1][0] * this.getA(originImgData, x-1, y);//f1*f2
                 }
                 if (y - 1 >= 0 && x - 1 >= 0) { //Arriba a la izquierda
                     sumR += mat[0][0] * this.getRed(originImgData, x-1, y-1);//g1*g2
                     sumG += mat[0][0] * this.getGreen(originImgData, x-1, y-1);//g1*g2
                     sumB += mat[0][0] * this.getBlue(originImgData, x-1, y-1);//g1*g2
-                    //sumA += mat[0][0] * this.getA(originImgData, x-1, y-1);//g1*g2
                 }
                 if (y - 1 >= 0) { //Arriba
                     sumR += mat[0][1] * this.getRed(originImgData, x, y-1);//h1*h2
                     sumG += mat[0][1] * this.getGreen(originImgData, x, y-1);//h1*h2
                     sumB += mat[0][1] * this.getBlue(originImgData, x, y-1);//h1*h2
-                    //sumA += mat[0][1] * this.getA(originImgData, x, y-1);//h1*h2
                 }
                 
                 this.setPixel(finalImgData, x, y, sumR, sumG, sumB, 255);

@@ -13,6 +13,31 @@ export default class ImageButton {
         document.getElementById('btn-setImage').onclick = () => this.showUrlInput();
         document.getElementById('btn-uploadImage').onclick = () => this.uploadImage();
         document.querySelector('.input-url-img-section').onmouseleave = () => this.showUrlInput();
+        document.getElementById("input-local-img").onchange = (e) => this.uploadImageFromInput(e);
+    }
+
+    uploadImageFromInput(e) {
+        if(e.target.files) {
+            let image = e.target.files[0];
+            var reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onloadend = (e) => {
+                var myImage = new Image();
+                myImage.src = e.target.result; 
+                myImage.onload =() => {
+                    let size = {
+                        width: myImage.width,
+                        height: myImage.height,
+                    }
+                    if (!this.isValidSize(size)) {
+                        this.showError("Invalid size");
+                        return;
+                    }
+                    this.#canvas.setCanvasSize(size);
+                    this.#ctx.drawImage(myImage, 0, 0);
+                }
+            }
+        }
     }
 
     showUrlInput() {
