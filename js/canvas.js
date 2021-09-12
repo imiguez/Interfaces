@@ -4,8 +4,6 @@ export default class Canvas {
     #canvasEl;
     #canvas;
     #ctx;
-    #width;
-    #height;
 
     constructor() {
         this.#env = document.querySelector('.canvas-section');
@@ -14,8 +12,6 @@ export default class Canvas {
         this.#canvasEl.id = 'canvas';
 
         this.#canvas = document.getElementById('canvas');
-        this.#canvas.width = this.#width;
-        this.#canvas.height = this.#height;
         this.#ctx = this.#canvas.getContext("2d");
     }
 
@@ -33,7 +29,7 @@ export default class Canvas {
     }
 
     clearCanvas() {
-        this.#ctx.clearRect(0, 0, this.#width, this.#height);
+        this.#ctx.clearRect(0, 0, this.#canvas.width, this.#canvas.height);
     }
 
 }
