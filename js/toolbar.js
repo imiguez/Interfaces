@@ -13,14 +13,14 @@ export default class ToolBar {
         this.setMotion();
         // btn Pen
         this.#pen = new Pen(ctx, canvas);
-        this.#pen.setMode("draw");
+        //this.#pen.setMode("draw");
         // btn Save
         new SaveButton(canvas.getCanvas());
         // btn Clear
         document.getElementById('btn-newCanvas').onclick = () => canvas.clearCanvas();
         // btn Image
         this.#imageBtn = new ImageButton(canvas, ctx);
-        console.log(this.#imageBtn);
+        //console.log(this.#imageBtn);
         // btn Filters
         // new FilterSwitch(canvas, ctx);
         new FilterSwitch(this.#imageBtn.getImage(), ctx, canvas.getCanvas());

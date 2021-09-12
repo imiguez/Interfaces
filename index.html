@@ -13,7 +13,7 @@
     <main>
 
         <section class="toolbar-section">
-            <button id="btn-pen" title="Draw"><i class="fas fa-pen"></i></button>
+            <button id="btn-pen" title="Draw" style="background: black;"><i class="fas fa-pen"></i></button>
             <input type="range" id="pen-thickness" min="1" max="5" value="1">
             <!-- <select name="" id="mode-select">
                 <option value="draw">mode A</option>
@@ -24,7 +24,7 @@
             <button id="btn-save" title="Save"><i class="fas fa-save"></i></button>
             <button id="btn-newCanvas" title="Clear"><i class="far fa-file"></i></button>
             <select name="" id="filter-select" title="Filters">
-                <option value="none" selected disabled hidden>Filtros</option>
+                <option value="none" selected disabled hidden id="default-option">Filtros</option>
                 <option value="negativo">negativo</option>
                 <option value="brillo">brillo</option>
                 <option value="binarizacion">binarizacion</option>
