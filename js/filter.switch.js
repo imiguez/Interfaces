@@ -4,6 +4,7 @@ export default class FilterSwitch {
     #image;
     #ctx;
     #canvas;
+    #filter;
 
     // constructor(ctx) {
     //     this.#ctx = ctx;
@@ -19,6 +20,7 @@ export default class FilterSwitch {
     }
 
     setFilter() {
+        let defOption = document.getElementById('default-option');
         switch (document.getElementById('filter-select').value) {
             case "sepia": this.drawSepiaFilter(); break;
             case "negativo": this.drawNegativoFilter(); break;
@@ -32,6 +34,8 @@ export default class FilterSwitch {
             case "bordes-vertical-negro": this.drawVerticalBorderFilter(); break;
             case "blur": this.drawBlurFilter(); break;
         }
+        defOption.selected = "selected";
+        defOption.textContent = this.#filter;
     }
 
     drawSepiaFilter() {
@@ -52,6 +56,7 @@ export default class FilterSwitch {
             pixels[i * 4 + 2] = (r * .272) + (g * .534) + (b * .131);
         }
         this.#ctx.putImageData(imageData, 0, 0);
+        this.#filter = "sepia";
     }
     
     drawNegativoFilter() {
@@ -68,6 +73,7 @@ export default class FilterSwitch {
             pixels[i * 4 + 2] = 255 - b;
         }
         this.#ctx.putImageData(imageData, 0, 0);
+        this.#filter = "negativo";
     }
     
     drawBrightFilter(bright = 0) { // En un futuro puede ser dinamico
@@ -81,6 +87,7 @@ export default class FilterSwitch {
             }
         }
         this.#ctx.putImageData(imageData, 0, 0);
+        this.#filter = "brillo";
     }
 
     drawGreyScaleFilter() {
@@ -95,6 +102,7 @@ export default class FilterSwitch {
             }
         }
         this.#ctx.putImageData(imageData, 0, 0);
+        this.#filter = "escala de grises";
     }
 
     drawBinarizationFilter() {
@@ -112,6 +120,7 @@ export default class FilterSwitch {
             }
         }
         this.#ctx.putImageData(imageData, 0, 0);
+        this.#filter = "binarizacion";
     }
 
     drawBorderFilter(mat) { // Se le puede mandar una matriz horizontal o vertical
@@ -174,20 +183,24 @@ export default class FilterSwitch {
     drawHorizontalBorderFilter() {
         let matHorizontal = [[-1, 0 , 1], [-2, 0, 2], [-1, 0, 1]];
         this.drawBorderFilter(matHorizontal);
+        this.#filter = "borde horizontal negro";
     }
     drawWhiteHorizontalBorderFilter() {
         this.drawHorizontalBorderFilter();
         this.drawNegativoFilter();
+        this.#filter = "borde horizontal blanco";
     }
 
     drawWhiteVerticalBorderFilter() {
         this.drawVerticalBorderFilter();
         this.drawNegativoFilter();
+        this.#filter = "borde vertical blanco";
     }
 
     drawVerticalBorderFilter() {
         let matVertical = [[-1, -2 , -1], [0, 0, 0], [1, 2, 1]];
         this.drawBorderFilter(matVertical);
+        this.#filter = "borde vertical negro";
     }
 
     drawSaturacionFilter() { }
