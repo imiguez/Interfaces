@@ -47,7 +47,7 @@ export default class FilterSwitch {
             pixels[i * 4 + 2] = (r * .272) + (g * .534) + (b * .131);
         }
         this.#ctx.putImageData(imageData, 0, 0);
-        this.#filter = "sepia";
+        this.#filter = "Sepia";
     }
     
     drawNegativoFilter() {
@@ -63,7 +63,7 @@ export default class FilterSwitch {
             pixels[i * 4 + 2] = 255 - b;
         }
         this.#ctx.putImageData(imageData, 0, 0);
-        this.#filter = "negativo";
+        this.#filter = "Negativo";
     }
     
     drawBrightFilter(bright = 0) { // En un futuro puede ser dinamico
@@ -77,7 +77,7 @@ export default class FilterSwitch {
             }
         }
         this.#ctx.putImageData(imageData, 0, 0);
-        this.#filter = "brillo";
+        this.#filter = "Brillo";
     }
 
     drawGreyScaleFilter() {
@@ -92,7 +92,7 @@ export default class FilterSwitch {
             }
         }
         this.#ctx.putImageData(imageData, 0, 0);
-        this.#filter = "escala de grises";
+        this.#filter = "Desaturación";
     }
 
     drawBinarizationFilter() {
@@ -110,7 +110,7 @@ export default class FilterSwitch {
             }
         }
         this.#ctx.putImageData(imageData, 0, 0);
-        this.#filter = "binarizacion";
+        this.#filter = "Binarización";
     }
 
     drawBorderFilter(mat) { // Se le puede mandar una matriz horizontal o vertical
@@ -173,24 +173,24 @@ export default class FilterSwitch {
     drawHorizontalBorderFilter() {
         let matHorizontal = [[-1, 0 , 1], [-2, 0, 2], [-1, 0, 1]];
         this.drawBorderFilter(matHorizontal);
-        this.#filter = "borde horizontal negro";
+        this.#filter = "Borde Horizontal Negro";
     }
     drawWhiteHorizontalBorderFilter() {
         this.drawHorizontalBorderFilter();
         this.drawNegativoFilter();
-        this.#filter = "borde horizontal blanco";
+        this.#filter = "Borde Horizontal Blanco";
     }
 
     drawWhiteVerticalBorderFilter() {
         this.drawVerticalBorderFilter();
         this.drawNegativoFilter();
-        this.#filter = "borde vertical blanco";
+        this.#filter = "Borde Vertical Blanco";
     }
 
     drawVerticalBorderFilter() {
         let matVertical = [[-1, -2 , -1], [0, 0, 0], [1, 2, 1]];
         this.drawBorderFilter(matVertical);
-        this.#filter = "borde vertical negro";
+        this.#filter = "Borde Vertical Negro";
     }
 
     drawSaturacionFilter() { }
