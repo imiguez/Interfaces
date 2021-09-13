@@ -10,7 +10,7 @@ export default class SaveButton {
     saveImage() {
         let link = window.document.createElement('a');
         let url = this.#canvas.toDataURL();
-        let filename = 'screenshot.jpg';
+        let filename = 'image.jpg';
 
         link.setAttribute('href', url);
         link.setAttribute('download', filename);

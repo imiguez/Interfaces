@@ -13,16 +13,19 @@
     <main>
 
         <section class="toolbar-section">
+            <!-- btn lápiz -->
             <button id="btn-pen" title="Draw" style="background: black;"><i class="fas fa-pen"></i></button>
+            <!-- tamaño lápiz / goma -->
             <input type="range" id="pen-thickness" min="1" max="5" value="1">
-            <!-- <select name="" id="mode-select">
-                <option value="draw">mode A</option>
-                <option value="paint">mode B</option>
-            </select> -->
+            <!-- btn goma de borrar -->
             <button id="btn-erase" title="Erase"><i class="fas fa-eraser"></i></button>
+            <!-- color picker -->
             <input id="btn-color" type="color" title="Color"></input>
+            <!-- btn guardar -->
             <button id="btn-save" title="Save"><i class="fas fa-save"></i></button>
+            <!-- btn limpiar canvas -->
             <button id="btn-newCanvas" title="Clear"><i class="far fa-file"></i></button>
+            <!-- select filtros -->
             <select name="" id="filter-select" title="Filters">
                 <option value="none" selected disabled hidden id="default-option">Filtros</option>
                 <option value="negativo">negativo</option>
@@ -37,15 +40,19 @@
                 <option value="bordes-vertical-negro">borde vertical negro</option>
                 <option value="blur">blur</option>
             </select>
+            <!-- btn subir img -->
             <button id="btn-setImage" title="Select Image"><i class="fas fa-image"></i></button>
             <div class="input-url-img-section display-none">
+                <!-- from url -->
                 <input id="input-url-img" type="text" placeholder="https://...">
                 <button id="btn-uploadImage" title="Upload Image"><i class="fas fa-download"></i></button>
+                <!-- from disk -->
                 <input type="file" id="input-local-img" accept=".png, .jpg, .jpeg">
             </div>
         </section>
 
         <section class="canvas-section">
+            <canvas id="canvas"></canvas>
         </section>
 
     </main>

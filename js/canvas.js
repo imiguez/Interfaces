@@ -1,16 +1,9 @@
 export default class Canvas {
 
-    #env;
-    #canvasEl;
     #canvas;
     #ctx;
 
     constructor() {
-        this.#env = document.querySelector('.canvas-section');
-        this.#canvasEl = document.createElement('canvas');
-        this.#env.appendChild(this.#canvasEl);
-        this.#canvasEl.id = 'canvas';
-
         this.#canvas = document.getElementById('canvas');
         this.#ctx = this.#canvas.getContext("2d");
     }

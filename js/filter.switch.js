@@ -1,19 +1,10 @@
-import ImageButton from "./image.button.js";
 export default class FilterSwitch {
 
-    #image;
     #ctx;
     #canvas;
     #filter;
 
-    // constructor(ctx) {
-    //     this.#ctx = ctx;
-    //     document.getElementById('filter-select').onchange = () => this.setFilter();
-    // }
-
-    constructor(img, ctx, canvas) {
-        console.log(img);
-        this.#image = img;
+    constructor(ctx, canvas) {
         this.#ctx = ctx;
         this.#canvas = canvas;
         document.getElementById('filter-select').onchange = () => this.setFilter();
@@ -61,7 +52,6 @@ export default class FilterSwitch {
     
     drawNegativoFilter() {
         let imageData = this.#ctx.getImageData(0, 0, this.#canvas.width, this.#canvas.height);
-        // let imageData = this.#ctx.getImageData(0, 0, this.#image.width, this.#image.height);
         let pixels = imageData.data;
         let numPixels = imageData.width * imageData.height;
         for (let i = 0; i < numPixels; i++) {
@@ -239,10 +229,12 @@ export default class FilterSwitch {
         let index = (x + y * imageData.width) * 4;
         return imageData.data[index + 0];
     }
+    
     getGreen(imageData, x, y) {
         let index = (x + y * imageData.width) * 4;
         return imageData.data[index + 1];
     }
+    
     getBlue(imageData, x, y) {
         let index = (x + y * imageData.width) * 4;
         return imageData.data[index + 2];
@@ -274,4 +266,5 @@ export default class FilterSwitch {
         const f = (n) => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
         return [255 * f(5), 255 * f(3), 255 * f(1)];
     };
+    
 }

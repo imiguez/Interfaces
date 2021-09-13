@@ -1,8 +1,8 @@
 export default class ImageButton {
 
+    #canvas;
     #ctx;
     #image;
-    #canvas;
     #MAX_WIDTH = 1200;
     #MAX_HEIGHT = 500;
     #imgURL = document.getElementById('input-url-img').value;
@@ -70,9 +70,6 @@ export default class ImageButton {
     }
 
     getImage() {
-        // this.#image = new Image();
-        // this.#image.src = this.#imgURL;
-        console.log(this.#image);
         return this.#image;
     }
 
