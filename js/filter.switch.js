@@ -160,55 +160,64 @@ export default class FilterSwitch {
         let sumR = 0;
         let sumG = 0;
         let sumB = 0;
+        let sumCount = 0; // Contador de sumas hechas para saber por cuanto divir el resultado en caso de que se necesite el promedio
         if (y - 1 >= 0 && x + 1 <= originImgData.width) { //Arriba a la derecha
             //Multiplica valor de arriba a la derecha de la mat con los valores del pixel de arriba a la derecha
             sumR += mat[0][2] * this.getRed(originImgData, x+1, y-1);//a1*a2
             sumG += mat[0][2] * this.getGreen(originImgData, x+1, y-1);//a1*a2
             sumB += mat[0][2] * this.getBlue(originImgData, x+1, y-1);//a1*a2
+            sumCount++;
         }
         if (x + 1 <= originImgData.width) { //A la derecha
             //Multiplica valor de la derecha de la mat con los valores del pixel de la derecha
             sumR += mat[1][2] * this.getRed(originImgData, x+1, y);//b1*b2
             sumG += mat[1][2] * this.getGreen(originImgData, x+1, y);//b1*b2
             sumB += mat[1][2] * this.getBlue(originImgData, x+1, y);//b1*b2
+            sumCount++;
         }
         if (y + 1 <= originImgData.height && x + 1 <= originImgData.width) { //Abajo a la derecha
             //Multiplica valor de abajo a la derecha de la mat con los valores del pixel de abajo a de la derecha
             sumR += mat[2][2] * this.getRed(originImgData, x+1, y+1);//c1*c2
             sumG += mat[2][2] * this.getGreen(originImgData, x+1, y+1);//c1*c2
             sumB += mat[2][2] * this.getBlue(originImgData, x+1, y+1);//c1*c2
+            sumCount++;
         }
         if (y + 1 <= originImgData.height) { //Abajo
             //Multiplica valor de abajo de la mat con los valores del pixel de abajo
             sumR += mat[2][1] * this.getRed(originImgData, x, y+1);//d1*d2
             sumG += mat[2][1] * this.getGreen(originImgData, x, y+1);//d1*d2
             sumB += mat[2][1] * this.getBlue(originImgData, x, y+1);//d1*d2
+            sumCount++;
         }
         if (y + 1 <= originImgData.height && x - 1 >= 0) { //Abajo a la izquierda
             //Multiplica valor de abajo a la izquierda de la mat con los valores del pixel de abajo a la izquierda
             sumR += mat[2][0] * this.getRed(originImgData, x-1, y+1);//e1*e2
             sumG += mat[2][0] * this.getGreen(originImgData, x-1, y+1);//e1*e2
             sumB += mat[2][0] * this.getBlue(originImgData, x-1, y+1);//e1*e2
+            sumCount++;
         }
         if(x - 1 >= 0) { //A la izquierda
             //Multiplica valor de la izquierda de la mat con los valores del pixel de la izquierda
             sumR += mat[1][0] * this.getRed(originImgData, x-1, y);//f1*f2
             sumG += mat[1][0] * this.getGreen(originImgData, x-1, y);//f1*f2
             sumB += mat[1][0] * this.getBlue(originImgData, x-1, y);//f1*f2
+            sumCount++;
         }
         if (y - 1 >= 0 && x - 1 >= 0) { //Arriba a la izquierda
             //Multiplica valor de arriba a la izquierda de la mat con los valores del pixel de arriba a la izquierda
             sumR += mat[0][0] * this.getRed(originImgData, x-1, y-1);//g1*g2
             sumG += mat[0][0] * this.getGreen(originImgData, x-1, y-1);//g1*g2
             sumB += mat[0][0] * this.getBlue(originImgData, x-1, y-1);//g1*g2
+            sumCount++;
         }
         if (y - 1 >= 0) { //Arriba
             //Multiplica valor de arriba de la mat con los valores del pixel de arriba
             sumR += mat[0][1] * this.getRed(originImgData, x, y-1);//h1*h2
             sumG += mat[0][1] * this.getGreen(originImgData, x, y-1);//h1*h2
             sumB += mat[0][1] * this.getBlue(originImgData, x, y-1);//h1*h2
+            sumCount++;
         }
-        return new Array(sumR, sumG, sumB); // Retorna un arreglo con el resultado de las sumas de los valores RGB
+        return new Array(sumR, sumG, sumB, sumCount); // Retorna un arreglo con el resultado de las sumas de los valores RGB
     }
 
     drawHorizontalBorderFilter() {
@@ -237,6 +246,18 @@ export default class FilterSwitch {
     drawSaturacionFilter() { }
     
     drawBlurFilter() {
+        let mat = [[1, 1, 1], [1, 1, 1], [1, 1, 1]];
+        let originImgData = this.#ctx.getImageData(0, 0, this.#canvas.width, this.#canvas.height); // ImageData original que no modificaremos
+        let finalImgData = this.#ctx.getImageData(0, 0, this.#canvas.width, this.#canvas.height); // ImageData en el que haremos modificaciones
+        for (let x = 0; x < originImgData.width; x++) {
+            for (let y = 0; y < originImgData.height; y++) {
+                let sumRGB = this.getSumOfRGBFromNeighborPixels(originImgData, x, y, mat); // Obtengo la suma de los valores rgb de los pixeles vecinos
+                let neighbors = sumRGB[3]; // Obtiene la cantidad de pixeles vecinos que se tuvieron en cuenta
+                // Seteo los pixeles con el promedio de los valores rgb de los pixeles vecinos
+                this.setPixel(finalImgData, x, y, sumRGB[0]/neighbors, sumRGB[1]/neighbors, sumRGB[2]/neighbors, 255);
+            }
+        }
+        this.#ctx.putImageData(finalImgData, 0, 0);
         /* Box blur (image)
         {
             Declare newImage as a copy of the image;
