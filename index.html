@@ -40,15 +40,11 @@
                 <option value="bordes-vertical-blanco">Borde Vertical Blanco</option>
                 <option value="bordes-vertical-negro">Borde Vertical Negro</option>
             </select>
-            <!-- btn subir img -->
-            <button id="btn-setImage" title="Select Image"><i class="fas fa-image"></i></button>
-            <div class="input-url-img-section display-none">
-                <!-- from url -->
-                <input id="input-url-img" type="text" placeholder="https://...">
-                <button id="btn-uploadImage" title="Upload Image"><i class="fas fa-download"></i></button>
-                <!-- from disk -->
-                <input type="file" id="input-local-img" accept=".png, .jpg, .jpeg">
-            </div>
+            <!-- btn subir imagen -->
+            <label class="custom-file-upload" title="Image">
+                <input id="input-local-img" type="file"/><i class="fas fa-image"></i>
+            </label>           
+
         </section>
 
         <section class="canvas-section">
