@@ -3,8 +3,8 @@ export default class ImageButton {
     #canvas;
     #ctx;
     #image;
-    #MAX_WIDTH = 1200;
-    #MAX_HEIGHT = 500;
+    #MAX_WIDTH = 1920;
+    #MAX_HEIGHT = 1080;
 
     constructor(canvas, ctx) {
         this.#canvas = canvas;
@@ -26,7 +26,7 @@ export default class ImageButton {
                         height: myImage.height,
                     }
                     if (!this.isValidSize(size)) {
-                        this.showError("Invalid size");
+                        this.showError(`Imagen demasiado grande. (MAX = ${this.#MAX_WIDTH} x ${this.#MAX_HEIGHT})`);
                         return;
                     }
                     this.#canvas.setCanvasSize(size);
