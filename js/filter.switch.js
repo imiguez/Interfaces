@@ -18,7 +18,6 @@ export default class FilterSwitch {
             case "brillo": this.drawBrightFilter(20); break;
             case "binarizacion": this.drawBinarizationFilter(); break;
             case "escala-grises": this.drawGreyScaleFilter(); break;
-            case "saturacion": this.drawSaturacionFilter(); break;
             case "bordes-sobel": this.drawSobelBorderFilter(); break;
             case "bordes-horizontal-blanco": this.drawWhiteHorizontalBorderFilter(); break;
             case "bordes-horizontal-negro": this.drawHorizontalBorderFilter(); break;
@@ -55,7 +54,7 @@ export default class FilterSwitch {
                 let r = this.getRed(imageData, x, y);
                 let g = this.getGreen(imageData, x, y);
                 let b = this.getBlue(imageData, x, y);
-                this.setPixel(imageData, x, y, 255 - r, 255 - g, 255 - b); // se invierten los valores de rgb en cada iteración
+                this.setPixel(imageData, x, y, 255 - r, 255 - g, 255 - b); // Se invierten los valores de rgb en cada iteración (cambia el color por el complementario)
             }
         }
         this.#ctx.putImageData(imageData, 0, 0);
@@ -238,8 +237,6 @@ export default class FilterSwitch {
         this.drawHorizontalAndVerticalBorderFilter(matVertical);
         this.#filter = "Borde Vertical Negro";
     }
-
-    drawSaturacionFilter() { }
     
     drawBlurFilter() {
         let mat = [[1, 1, 1], [1, 1, 1], [1, 1, 1]];
