@@ -13,14 +13,14 @@ export default class ImageButton {
     }
 
     uploadImageFromInput(e) {
-        if(e.target.files) {
+        if (e.target.files) {
             let image = e.target.files[0];
             var reader = new FileReader();
             reader.readAsDataURL(image);
             reader.onloadend = (e) => {
                 var myImage = new Image();
-                myImage.src = e.target.result; 
-                myImage.onload =() => {
+                myImage.src = e.target.result;
+                myImage.onload = () => {
                     let size = {
                         width: myImage.width,
                         height: myImage.height,

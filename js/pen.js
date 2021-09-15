@@ -38,7 +38,7 @@ export default class Pen {
         // Cuando para, deja de pitar.
         canvas.getCanvas().onmouseup = () => this.stopPainting();
     }
-    
+
     setColor() {
         // Si esta activada la goma, en color blanco. Si no esta activada, en color seleccionado.
         let colorSelected = document.getElementById("btn-color").value;
@@ -53,7 +53,7 @@ export default class Pen {
         this.#painting = true;
         this.#ctx.strokeStyle = this.#color;
         // Del tamaño de 1 pixel por defecto.
-        this.#ctx.lineWidth = this.#thickness;    
+        this.#ctx.lineWidth = this.#thickness;
     }
 
     startPainting(e) {
@@ -64,7 +64,7 @@ export default class Pen {
             // Dibuja una línea desde el punto donde se encuentra hasta donde se mueve.
             this.#ctx.lineTo(e.offsetX, e.offsetY);
             this.#ctx.stroke();
-            this.#ctx.moveTo(e.offsetX, e.offsetY); 
+            this.#ctx.moveTo(e.offsetX, e.offsetY);
         }
     }
 
