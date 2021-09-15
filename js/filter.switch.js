@@ -108,7 +108,7 @@ export default class FilterSwitch {
                 let avgr = Math.round(r + r - 100); // Aumento la intensidad de cada pixel pero sin que pase los 255
                 let avgg = Math.round(g + g - 100);
                 let avgb = Math.round(b + b - 100);
-¡                this.setPixel(imageData, x, y, avgr, avgg, avgb);
+                this.setPixel(imageData, x, y, avgr, avgg, avgb);
             }
         }
         this.#ctx.putImageData(imageData, 0, 0);
