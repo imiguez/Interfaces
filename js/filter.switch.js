@@ -105,10 +105,12 @@ export default class FilterSwitch {
                 let r = this.getRed(imageData, x, y);
                 let g = this.getGreen(imageData, x, y);
                 let b = this.getBlue(imageData, x, y);
-                let avgr = Math.round(r + r - 100); // Aumento la intensidad de cada pixel pero sin que pase los 255
-                let avgg = Math.round(g + g - 100);
-                let avgb = Math.round(b + b - 100);
-                this.setPixel(imageData, x, y, avgr, avgg, avgb);
+                // Aumento la cantidad de cada pixel 
+                this.setPixel(imageData, x, y, 
+                    Math.round(r + r - 100),
+                    Math.round(g + g - 100),
+                    Math.round(b + b - 100)
+                );
             }
         }
         this.#ctx.putImageData(imageData, 0, 0);
@@ -269,6 +271,7 @@ export default class FilterSwitch {
             }
         }
         this.#ctx.putImageData(finalImgData, 0, 0);
+        this.#filter = "Desenfoque Gaussiano";
     }
 
     getRed(imageData, x, y) {
