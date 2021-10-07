@@ -14,32 +14,16 @@
         <div id="timer">Timer</div>
     </nav>
 
+    <div class="players-label">
+        <h2>Player 1</h2>
+        <h2>Player 2</h2>
+    </div>
     <main>
-        <aside class="player-section" id="player-1">
-            <h2>Player 1</h2>
-            <section class="customize-chips">
-                <img src="../img/poker-chip.png" alt=""><img src="" alt=""><img src="" alt=""><img src="" alt="">
-            </section>
-            <section class="chips">
-
-            </section>
-        </aside>
-
-        <canvas id="board">
-
-        </canvas>
-
-        <aside class="player-section" id="player-2">
-            <h2>Player 2</h2>
-            <section class="customize-chips">
-
-            </section>
-            <section class="chips">
-
-            </section>
-        </aside>
+        <canvas class="player" id="player-1"></canvas> <!-- Acá irían las fichas del jugador 1 -->
+        <canvas id="board"></canvas>
+        <canvas class="player" id="player-2"></canvas> <!-- Acá irían las fichas del jugador 2 -->
     </main>
 
-    <script src="../js/game/board.js"></script>
+    <script type="module" src="../js/game/main.js"></script>
 </body>
 </html>

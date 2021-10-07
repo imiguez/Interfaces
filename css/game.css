@@ -29,37 +29,14 @@ nav {
     cursor: pointer;
 }
 
-main {
-    width: calc(100vw-25px);
-    height: 86vh;
+.players-label {
+    width: 100%;
+    height: 10vh;
     display: flex;
-    justify-content: space-around;
-    padding-top: 25px;
-}
-
-.player-section {
-    width: 20%;
-}
-
-.customize-chips img {
-    width: 18%;
-    height: auto;
-}
-
-.player-section:first-of-type {
-    background-color: aliceblue;
-}
-
-.player-section:last-of-type {
-    background-color: aliceblue;
+    justify-content: space-between;
 }
 
 #board {
     background-color: aliceblue;
-    width: 50%;
-}
-
-canvas {
-    width: 100%;
-    height: 100%;
+    height: 76vh;
 }

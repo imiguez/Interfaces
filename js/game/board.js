@@ -1,39 +1,35 @@
-document.addEventListener('DOMContentLoaded', () => {
-    let board = new Board();
-    console.log("paso");
-    board.paint();
-});
+import Figure from "./figure.js";
+import BoardPiece from "./boardPiece.js";
 
 
-class Board {
+export default class Board extends Figure{
 
-    #canvas;
-    #ctx;
-    #width;
-    #height;
+    width;
+    height;
 
-    constructor() {
-        this.#canvas = document.getElementById('board');
-        this.#ctx = this.#canvas.getContext("2d");
-        this.#height = this.#canvas.getAttribute("height");
-        this.#width = this.#canvas.getAttribute("width");
+    constructor(canvas) {
+        // Se distorcionan 'x' e 'y'  en el canvas, por ejemplo, teniendo el valor 20 se representa como 100px aprox
+        super(0, 50, canvas.getContext("2d"));
+        // Le pongo  y=50  y en el navegador se ve como 100 o 150 px
     }
 
-    paint() {
-        let imgData = this.#ctx.getImageData(0, 0, this.#width, this.#height);
-        this.#ctx.beginPath();
-        this.#ctx.lineWidth = "1";
-        this.#ctx.strokeStyle = "red";
-        this.#ctx.rect(5, 30, this.#width-120, this.#height-20);
-        this.#ctx.stroke();
+    draw(nInLine) {
+        let w = 15; // width de la imagen del pedazo de tablero
+        let h = 15; // height de la imagen del pedazo de tablero
+        
+        for (let x = 0; x < nInLine; x++) { 
+            let x2 = (x * w) + this.posX; 
+            // x2 sera el valor de x para la nueva pieza y se calcula como: 
+            //la posicion x del tablero + la cantidad de piezas * su anchura
+            for (let y = 0; y < nInLine; y++) {
+                let y2 = (y * h) + this.posY;
+                // y2 sera el valor de y para la nueva pieza y se calcula como: 
+                //la posicion y del tablero + la cantidad de piezas * su altura
+                let piece = new BoardPiece(x2, y2, this.ctx, w, h); // Posicion (x, y), context, ancho y alto de la imagen
+                piece.draw();
+            }
+        }
     }
 
 
-    setPixel(imageData, x, y, r, g, b, a = 255) {
-        let index = (x + y * imageData.width) * 4;
-        imageData.data[index + 0] = r;
-        imageData.data[index + 1] = g;
-        imageData.data[index + 2] = b;
-        imageData.data[index + 3] = a;
-    }
 }
