@@ -11,6 +11,13 @@
     
     <nav>
         <button id="start-btn">Start</button>
+        <select name="" id="x-in-line">
+            <option value="4" selected>4 en Línea</option>
+            <option value="5">5 en Línea</option>
+            <option value="6">6 en Línea</option>
+            <option value="7">7 en Línea</option>
+        </select>
+
         <div id="timer">Timer</div>
     </nav>
 
@@ -18,11 +25,7 @@
         <h2>Player 1</h2>
         <h2>Player 2</h2>
     </div>
-    <main>
-        <canvas class="player" id="player-1"></canvas> <!-- Acá irían las fichas del jugador 1 -->
-        <canvas id="board"></canvas>
-        <canvas class="player" id="player-2"></canvas> <!-- Acá irían las fichas del jugador 2 -->
-    </main>
+    <canvas id="board"></canvas>
 
     <script type="module" src="../js/game/main.js"></script>
 </body>
