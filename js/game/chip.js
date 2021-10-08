@@ -5,25 +5,37 @@ export default class Chip extends Figure {
     radius;
     highlight = false;
     canMove = true;
+    image = new Image();//"../../img/poker-chip.png";
 
     constructor(x, y, context, radius) {
         super(x, y, context);
         this.radius = radius;
+        this.image.src = "../../img/poker-chip.png";
+
     }
 
     draw() {
         this.ctx.beginPath();
         this.ctx.arc(this.posX, this.posY, this.radius, 0, 2*Math.PI);
+        if (this.image.src != null)
+            this.ctx.drawImage(this.image, this.posX-this.radius, this.posY-this.radius, this.radius*2, this.radius*2);
         if (this.highlight) {
             this.ctx.strokeStyle = "red";
-            this.ctx.lineWidth = 1;
+            this.ctx.lineWidth = 2;
             this.ctx.stroke();
-        }
+        } else 
+            this.ctx.lineWidth = 0;
         this.ctx.closePath();
     }
 
+    
+
+    moveTo(x, y) {
+        
+    }
+
     setChipImage(image) {
-        this.ctx.drawImage(image, this.posX-this.radius, this.posY-this.radius, this.radius*2, this.radius*2);
+        this.image = image;
     }
 
     getRadius() {

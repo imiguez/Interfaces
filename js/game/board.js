@@ -8,27 +8,27 @@ export default class Board extends Figure{
     height;
     boardPieces = [];
     gameStarted = false;
+    xInLine;
 
-    constructor(ctx, x, y, width, height) {
+    constructor(ctx, x, y, width, height, xInLine) {
         super(x, y, ctx);
         this.width = width;
         this.height = height;
+        this.xInLine = xInLine;
     }
 
-    draw(nInLine) {
-        if (this.gameStarted) // Si el juego ya empezo no se puede modificar el tablero
-            return;
+    draw() {
         this.ctx.fillStyle = "white";
         this.ctx.fillRect(this.posX, this.posY, this.width, this.height); // Limpia el tablero
         let w = 50; // width de la imagen del pedazo de tablero
         let h = 50; // height de la imagen del pedazo de tablero
-        let centerBoard = (this.width - w*nInLine) / 2; // Se encarga de centrar el tablero dependiendo de su tamaño
-        for (let x = 0; x < nInLine; x++) { 
+        let centerBoard = (this.width - w*this.xInLine) / 2; // Se encarga de centrar el tablero dependiendo de su tamaño
+        for (let x = 0; x < this.xInLine; x++) { 
             let x2 = (x * w) + this.posX + centerBoard; 
             // x2 sera el valor de x para la nueva pieza y se calcula como: 
             // la cantidad de piezas * su anchura + la posicion x del tablero + el centrado del tablero
             this.boardPieces[x] = [];
-            for (let y = 0; y < nInLine; y++) {
+            for (let y = 0; y < this.xInLine; y++) {
                 let y2 = this.height - (y+1) * h;
                 // y2 sera el valor de y para la nueva pieza y se calcula como: 
                 // la altura del tablero - la cantidad de piezas+1 * su altura
@@ -43,5 +43,13 @@ export default class Board extends Figure{
         this.gameStarted = gameStarted;
     }
 
+    refreshBoard() {
+        this.draw();
+    }
+
+    setXInLine(xInLine) {
+        if (!this.gameStarted) // Si el juego ya empezo no se puede modificar el xInLine
+            this.xInLine = xInLine;
+    }
 
 }

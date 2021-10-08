@@ -5,24 +5,30 @@ import Player from "./player.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     let canvas = document.getElementById('board');
-    canvas.width = 1000;//window.screen.width;
-    canvas.height = 600;
+    canvas.width = 1200;//window.screen.width;
+    canvas.height = 500;
     let ctx = canvas.getContext("2d");
     let xInLine = 4;
-    let board = new Board(ctx, canvas.width / 4, 0, canvas.width / 2, (canvas.height / 4)*3);
-    board.draw(xInLine);
-    let player1 = new Player(ctx, 25, 50, (canvas.width/4)-25, canvas.height-50, xInLine*xInLine/2);
-    let player2 = new Player(ctx, (canvas.width/4)*3+25, 50, (canvas.width/4)-25, canvas.height-50, xInLine*xInLine/2);
+    let playersWidth = canvas.width/2 - 3.5*50;
+    let posXBoard = playersWidth;
+    let board = new Board(ctx, posXBoard, 0, 7*50, canvas.height, xInLine);
+    board.draw();
+    let player1 = new Player(ctx, 0, 0, playersWidth, canvas.height, xInLine*xInLine/2);
+    let player2 = new Player(ctx, (canvas.width/2 + 3.5*50), 0, playersWidth, canvas.height, xInLine*xInLine/2);
+    let game = new Game(board, ctx, player1, player2);
     document.getElementById("x-in-line").onchange = () => {
         xInLine = document.getElementById("x-in-line").value;
-        board.draw(xInLine);
+        board.setXInLine(xInLine);
+        board.draw();
         player1.setChipsAmount(xInLine*xInLine/2);
         player2.setChipsAmount(xInLine*xInLine/2);
     };
     document.getElementById("start-btn").addEventListener("click", () => {
-        let game = new Game(board, ctx, player1, player2);
         game.startGame();
     });
+    canvas.addEventListener("mousedown", (e) => game.onMouseDown(e));
+    canvas.addEventListener("mousemove", (e) => game.onMouseMove(e));
+    canvas.addEventListener("mouseup", (e) => game.onMouseUp(e));
 });
 
 

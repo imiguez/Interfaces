@@ -25,6 +25,10 @@ export default class Player {
     setChips() {
         if (this.gameStarted)
             return;
+        this.refreshChipsPosition(true);        
+        }
+        
+        refreshChipsPosition(isSetChips = false) {
         this.ctx.fillStyle = "gray";
         this.ctx.fillRect(this.posX, this.posY, this.width, this.height); // Limpia las fichas
         let chipSize = 40;
@@ -32,16 +36,22 @@ export default class Player {
         let x2 = this.posX + chipSize/2;
         let yCount = 1;
         for (let c = 0; c < this.chipsAmount; c++) {
-            if (this.width-chipSize <= chipSize * (c/yCount)) {
+            if (this.width-(chipSize*2) <= chipSize * (c/yCount)) {
                 y2 = y2 + chipSize;
                 x2 = this.posX + chipSize/2;
                 yCount++;
             }
-            this.chips[c] = new Chip(x2, y2, this.ctx, chipSize/2);
-            let img = new Image();
-            img.src = this.chipsImage;
-            img.onload = () => {
-                this.chips[c].setChipImage(img);
+            if (isSetChips) {
+                this.chips[c] = new Chip(x2, y2, this.ctx, chipSize/2);
+                if (this.chipsImage != null) {
+                    let img = new Image();
+                    img.src = this.chipsImage;
+                    img.onload = () => {
+                        this.chips[c].setChipImage(img);
+                        this.chips[c].draw();
+                    }
+                }
+            }else {
                 this.chips[c].draw();
             }
             x2 = x2+ chipSize;
@@ -57,7 +67,18 @@ export default class Player {
         this.setChips();
     }
 
+    getChipsAmount() {
+        return this.chipsAmount;
+    }
+
+    getChips() {
+        return this.chips;
+    }
+
     setGameStarted(gameStarted) {
         this.gameStarted = gameStarted;
+        for (let c = 0; c < this.chipsAmount; c++) {
+            this.chips[c].setCanMove(true); // Cuando empieza el juego las fichas se pueden mover
+        }
     }
 }
