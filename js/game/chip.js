@@ -4,7 +4,7 @@ export default class Chip extends Figure {
 
     radius;
     highlight = false;
-    canMove = true;
+    canMove = false;
     image = new Image();//"../../img/poker-chip.png";
 
     constructor(x, y, context, radius) {
@@ -26,12 +26,6 @@ export default class Chip extends Figure {
         } else 
             this.ctx.lineWidth = 0;
         this.ctx.closePath();
-    }
-
-    
-
-    moveTo(x, y) {
-        
     }
 
     setChipImage(image) {

@@ -33,9 +33,9 @@ export default class Game {
         if (this.turn == 2) 
             player = this.player2
         let chip = this.findClickedChip(e.layerX, e.layerY, player);
-        if (chip != null) {
+        if (chip != null && chip.getCanMove()) {
             this.clickedChip = chip;
-            chip.highlight = true;
+            //chip.highlight = true;
             chip.draw();
         }
     }
@@ -48,10 +48,19 @@ export default class Game {
         }
     }
 
-    onMouseUp(e) {
+    onMouseUp(e) { // TODO
         this.isMouseDown = false;
         if (this.clickedChip != null) {
             this.clickedChip.highlight = false;
+            let boardPosX = this.board.getPosX() + (this.board.getWidth() - this.board.getXInLine() * 50); // 50 es el tamaño de las boardPieces
+            let realBoardWidth = boardPosX + this.board.getXInLine() * 50;
+            if (this.clickedChip.getPosX() > boardPosX && this.clickedChip.getPosX() < realBoardWidth) { // Se fija si la pos x de la ficha esta entre la primer y ultima boardPiece
+                let boardPosY = this.board.getHeight() - this.board.getXInLine() * 50;//this.height - (y+1) * h;
+                if (this.clickedChip.getPosY() < boardPosY) {
+                    
+                }
+                
+            }
             this.clickedChip.draw();
             this.clickedChip = null
         }
@@ -66,7 +75,7 @@ export default class Game {
     }
 
     refreshScreen() {
-        this.board.refreshBoard();
+        this.board.drawBoard();
         this.player1.refreshChipsPosition()
         this.player2.refreshChipsPosition()
     }
