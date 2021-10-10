@@ -6,25 +6,55 @@ import Player from "./player.js";
 document.addEventListener("DOMContentLoaded", () => {
     let canvas = document.getElementById('board');
     canvas.width = 1200;//window.screen.width;
-    canvas.height = 500;
+    canvas.height = 550;
     let ctx = canvas.getContext("2d");
-    let xInLine = 4;
-    let playersWidth = canvas.width/2 - 3.5*50;
+    let xInLineWinCondition = 4;
+    let chipsAndBoardPiecesAmount =  parseInt(xInLineWinCondition) + parseInt(xInLineWinCondition/2);
+    let playersWidth = canvas.width/2 - 6*40;
     let posXBoard = playersWidth;
-    let board = new Board(ctx, posXBoard, 0, 7*50, canvas.height, xInLine);
+    let board = new Board(ctx, posXBoard, 0, 12*40, canvas.height, chipsAndBoardPiecesAmount);
     board.setBoard();
-    let player1 = new Player(ctx, 0, 0, playersWidth, canvas.height, xInLine*xInLine/2);
-    let player2 = new Player(ctx, (canvas.width/2 + 3.5*50), 0, playersWidth, canvas.height, xInLine*xInLine/2);
-    let game = new Game(board, ctx, player1, player2);
+    let player1 = new Player(ctx, 0, 0, playersWidth, canvas.height, chipsAndBoardPiecesAmount*chipsAndBoardPiecesAmount/2, "player 1", "../../img/red-chip.png");
+    let player2 = new Player(ctx, (canvas.width/2 + 6*40), 0, playersWidth, canvas.height, chipsAndBoardPiecesAmount*chipsAndBoardPiecesAmount/2, "player 2", "../../img/black-chip.png");
+    let game = new Game(board, ctx, player1, player2, xInLineWinCondition);
     document.getElementById("x-in-line").onchange = () => {
-        xInLine = document.getElementById("x-in-line").value;
-        board.setXInLine(xInLine);
-        player1.setChipsAmount(xInLine*xInLine/2);
-        player2.setChipsAmount(xInLine*xInLine/2);
+        xInLineWinCondition = document.getElementById("x-in-line").value;
+        game.setXInLineWinCondition(xInLineWinCondition);
+        chipsAndBoardPiecesAmount =  parseInt(xInLineWinCondition) + parseInt(xInLineWinCondition/2);
+        board.setXInLine(chipsAndBoardPiecesAmount);
+        player1.setChipsAmount(chipsAndBoardPiecesAmount*chipsAndBoardPiecesAmount/2);
+        player2.setChipsAmount(chipsAndBoardPiecesAmount*chipsAndBoardPiecesAmount/2);
     };
+    let imgPlayer1 = document.getElementById("chip-image-player-1");
+    let imgPlayer2 = document.getElementById("chip-image-player-2");
+    imgPlayer1.addEventListener("change", (e) => {
+        if(e.target.files) {
+            let imageFile = e.target.files[0];
+            let reader = new FileReader();
+            reader.onloadend = (e) => {
+                player1.setChipsImage(reader.result);
+            }
+            reader.readAsDataURL(imageFile);
+        }
+    });
+    imgPlayer2.addEventListener("change", (e) => {
+        if(e.target.files) {
+            let imageFile = e.target.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(imageFile);
+            reader.onloadend = (e) => {
+                player2.setChipsImage(reader.result);
+            }
+            reader.readAsDataURL(imageFile);
+        }
+    });
     document.getElementById("start-btn").addEventListener("click", () => {
         game.startGame();
-        document.getElementById("x-in-line").setAttribute("disabled", true);
+        document.getElementById("x-in-line").setAttribute("style", "visibility: hidden;");
+        imgPlayer1.setAttribute("style", "visibility: hidden;");
+        imgPlayer2.setAttribute("style", "visibility: hidden;");
+        document.getElementById("start-btn").innerHTML = "Retry";
+        document.getElementById("start-btn").addEventListener("click", () => {location.reload();});
     });
     canvas.addEventListener("mousedown", (e) => game.onMouseDown(e));
     canvas.addEventListener("mousemove", (e) => game.onMouseMove(e));

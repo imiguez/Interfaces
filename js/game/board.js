@@ -10,6 +10,7 @@ export default class Board extends Figure{
     chips = [];
     gameStarted = false;
     xInLine;
+    boardPieceSize = 40;
 
     constructor(ctx, x, y, width, height, xInLine) {
         super(x, y, ctx);
@@ -17,12 +18,13 @@ export default class Board extends Figure{
         this.height = height;
         this.xInLine = xInLine;
     }
-
+    
     setBoard() {
+        console.log(this.xInLine);
         this.ctx.fillStyle = "gray";
         this.ctx.fillRect(this.posX, this.posY, this.width, this.height); // Limpia el tablero
-        let w = 50; // width de la imagen del pedazo de tablero
-        let h = 50; // height de la imagen del pedazo de tablero
+        let w = this.boardPieceSize; // width de la imagen del pedazo de tablero
+        let h = this.boardPieceSize; // height de la imagen del pedazo de tablero
         let centerBoard = (this.width - w*this.xInLine) / 2; // Se encarga de centrar el tablero dependiendo de su tamaño
         for (let x = 0; x < this.xInLine; x++) { 
             let x2 = (x * w) + this.posX + centerBoard; 
@@ -38,19 +40,14 @@ export default class Board extends Figure{
                 this.boardPieces[x][y] = piece;
             }
         }
-        this.drawBoard();
+        this.draw();
     }
 
     setGameStarted(gameStarted) {
         this.gameStarted = gameStarted;
-        // for (let x = 0; x < this.xInLine; x++) {
-        //     for (let y = 0; y < this.xInLine; y++) {
-        //         this.chips[x][y] = null;
-        //     }
-        // }
     }
 
-    drawBoard() {
+    draw() {
         this.ctx.fillStyle = "gray";
         this.ctx.fillRect(this.posX, this.posY, this.width, this.height); // Limpia el tablero
         for (let x = 0; x < this.xInLine; x++) { // Dibuja el tablero
@@ -58,26 +55,36 @@ export default class Board extends Figure{
                 this.boardPieces[x][y].draw();
             }
         }
+        for (let c = 0; c < this.chips.length; c++) {
+            this.chips[c].draw();
+        }
     }
 
     addChip(chip) { // TODO
-        //let newXPos = ;
-        let newYPos = this.height - chip.getRadius() + 5;
-        for (let c = 0; c < this.chips.length; c++) {
-            for (let bp = 0; bp < this.xInLine; bp++) {
-                let boardPiece = this.boardPieces[0][bp]
-                if (boardPiece.getPosX() <= chip.getPosX() && boardPiece.getPosX() + boardPiece.getWidth() >= chip.getPosX()) { // 
-                    if (this.chips[c].getPosY() <= newYPos) { 
-                        newYPos = newYPos - 50;
+        let newXPos = 0;
+        let newYPos = this.height - chip.getRadius();
+        
+        for (let bp = 0; bp < this.xInLine; bp++) {
+            let boardPiece = this.boardPieces[bp][0];
+            if (boardPiece.getPosX() <= chip.getPosX() && boardPiece.getPosX() + boardPiece.getWidth() >= chip.getPosX()) { // 
+                newXPos = boardPiece.getPosX() + boardPiece.getWidth() / 2;
+                for (let c = 0; c < this.chips.length; c++) {
+                    let posXChip = this.chips[c].getPosX()-this.chips[c].getRadius();
+                    let widthChip = this.chips[c].getPosX() + this.chips[c].getRadius() * 2;
+                    if (posXChip <= chip.getPosX() && widthChip >= chip.getPosX() && this.chips[c].getPosY() <= newYPos) { 
+                        newYPos = newYPos - this.boardPieceSize;
                     }
                 }
-                
             }
         }
-        if (newYPos > this.height- this.xInLine*50) { // Si la columna esta llena no se inserta
+        if (newYPos > this.height- this.xInLine*this.boardPieceSize) { // Si la columna esta llena no se inserta
             this.chips[this.chips.length] = chip;
-            chip.setPosition();
+            chip.setPosition(newXPos, newYPos);
+            chip.setCanMove(false);
+            chip.setRadius(15);
+            return true;
         }
+        return false;
     }
 
     setXInLine(xInLine) {
@@ -97,6 +104,14 @@ export default class Board extends Figure{
 
     getHeight() {
         return this.height;
+    }
+
+    getBoardPieceSize() {
+        return this.boardPieceSize;
+    }
+
+    getChips() {
+        return this.chips;
     }
 
 }

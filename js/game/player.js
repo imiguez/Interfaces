@@ -7,19 +7,22 @@ export default class Player {
     width;
     height;
     ctx;
-    chipsImage = "../../img/poker-chip.png";
+    chipsImage;
     chips = [];
     chipsAmount;
     gameStarted = false;
+    name;
 
-    constructor(ctx, x, y, width, height, chipsAmount) {
+    constructor(ctx, x, y, width, height, chipsAmount, name, image) {
         this.ctx = ctx;
         this.posX = x;
         this.posY = y;
         this.width = width;
         this.height = height;
         this.chipsAmount = chipsAmount;
+        this.chipsImage = image;
         this.setChips();
+        this.name = name;
     }
 
     setChips() {
@@ -44,12 +47,12 @@ export default class Player {
                 img.src = this.chipsImage;
                 img.onload = () => {
                     this.chips[c].setChipImage(img);
-                    this.chips[c].draw();
+                    //this.chips[c].draw();
                 }
             }
             x2 = x2+ chipSize;
         }
-        this.refreshChipsPosition(true);        
+        this.refreshChipsPosition();        
     }
         
     refreshChipsPosition() {
@@ -61,6 +64,7 @@ export default class Player {
 
     setChipsImage(chipImage) {
         this.chipsImage = chipImage;
+        this.setChips();
     }
 
     setChipsAmount(amount) {
@@ -76,10 +80,27 @@ export default class Player {
         return this.chips;
     }
 
+    setName(name) {
+        this.name = name;
+    }
+
+    getName() {
+        return this.name;
+    }
+
     setGameStarted(gameStarted) {
         this.gameStarted = gameStarted;
         for (let c = 0; c < this.chipsAmount; c++) {
-            this.chips[c].setCanMove(true); // Cuando empieza el juego las fichas se pueden mover
+            this.chips[c].setCanMove(gameStarted); // Cuando empieza el juego las fichas se pueden mover
         }
+    }
+
+    hasChipInPosition(x, y) {
+        for (let c = 0; c < this.chips.length; c++) {
+            if (this.chips[c].isPointInside(x, y)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
