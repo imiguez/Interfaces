@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/game.css">
+    <title>4 En Linea</title>
+</head>
+<body>
+    
+    <nav>
+        <button id="start-btn">Start</button>
+
+        <input type="file" id="chip-image-player-1" accept="image/png, image/gif, image/jpeg">
+        <select name="" id="x-in-line">
+            <option value="4" selected>4 en Línea</option>
+            <option value="5">5 en Línea</option>
+            <option value="6">6 en Línea</option>
+            <option value="7">7 en Línea</option>
+        </select>
+        <input type="file" id="chip-image-player-2" accept="image/png, image/gif, image/jpeg">
+
+        <div id="timer"></div>
+    </nav>
+
+    <div class="players-label">
+        <h2>Player 1</h2>
+        <h2 id="winner" style="visibility: hidden;"></h2>
+        <h2>Player 2</h2>
+    </div>
+    <main>
+        <canvas id="board"></canvas>
+    </main>
+
+    <script type="module" src="../js/game/main.js"></script>
+</body>
+</html>
