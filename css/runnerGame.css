@@ -18,31 +18,31 @@ body {
 }
 .layer-2 {
     background-image: url("../img/layers/clouds_2.png");
-    animation: background 70s linear infinite;
+    /* animation: background 70s linear infinite; */
 }
 .layer-3 {
     background-image: url("../img/layers/rocks.png");
-    animation: background 120s linear infinite;
+    /* animation: background 120s linear infinite; */
 }
 .layer-4 {
     background-image: url("../img/layers/clouds_1.png");
-    animation: background 50s linear infinite;
+    /* animation: background 50s linear infinite; */
 }
 .layer-5 {
     background-image: url("../img/layers/ground_1.png");
-    animation: background 80s linear infinite;
+    /* animation: background 80s linear infinite; */
 }
 .layer-6 {
     background-image: url("../img/layers/ground_2.png");
-    animation: background 40s linear infinite;
+    /* animation: background 40s linear infinite; */
 }
 .layer-7 {
     background-image: url("../img/layers/ground_3.png");
-    animation: background 10s linear infinite;
+    /* animation: background 10s linear infinite; */
 }
 .layer-8 {
     background-image: url("../img/layers/plant.png");
-    animation: background 10s linear infinite;
+    /* animation: background 10s linear infinite; */
 }
 
 @keyframes background {
@@ -51,14 +51,6 @@ body {
     }
     100% {
         background-position-x: -1360px; /* TODO - hacerlo dinamico segun el ancho de la pantalla */
-    }
-}
-@keyframes background-jump {
-    0% {
-        background-position-y: 0px;
-    }
-    100% {
-        background-position-y: 10px;
     }
 }
 #menu {
@@ -91,41 +83,69 @@ body {
 
 #character3 {
     width: 60px; 
-    height: 80px;
-    /* border: 2px solid red; */
+    height: 65px;
     position: absolute;
-    bottom: 30px;
+    top: 490px;
     left: 250px;
     background: url("../img/character3.png") no-repeat;
     background-position-x: -10px;
-    background-position-y: -285px;
-    top: 490px;
+    background-position-y: -292px;
+}
+
+@keyframes die {
+    0% {
+        background-position-x: -240px;
+        background-position-y: -292px;
+        left: 150px;
+        width: 75px;
+    }
+    100% {
+        background-position-x: -490px;
+        background-position-y: -292px;
+        top: 490px;
+        left: 100px;
+        width: 95px;
+    }
 }
 
 @keyframes jump {
     0% {
-        background-position-x: -10px;
-        background-position-y: -285px;
+        background-position-x: -170px;
+        background-position-y: -292px;
     }
     100% {
-        background-position-x: -250px;
-        background-position-y: -285px;
-        transform: translateY(-190px);
+        background-position-x: -170px;
+        background-position-y: -292px;
+        top: 300px;
     }
 }
 
 @keyframes run {
     0% {
         background-position-x: -10px;
-        background-position-y: -105px;
+        background-position-y: -115px;
     }
     100% {
         background-position-x: -480px;
-        background-position-y: -105px;
+        background-position-y: -115px;
     }
 }
 
+#obstacle-1 {
+    display: none;
+    width: 70px;
+    height: 70px;
+    background-color: red;
+    position: absolute;
+    bottom: 30px;
+    right: 0;
+    /* animation: obstacle-1 2s linear infinite; */
+}
 
+@keyframes obstacle-1 {
+    0% {right: 0;}
+    100% {right: 100%;}
+}
 
 /* 
 #character4 {
