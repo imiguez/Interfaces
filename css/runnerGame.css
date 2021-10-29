@@ -77,9 +77,13 @@
     position: absolute;
     background-repeat: repeat-x;
     background-size: cover;
-    
+    z-index: -1;
     top: 0;
     left: 0;
+}
+
+#layer-plant {
+    z-index: 2;
 }
 
 .layer-1 {
@@ -119,7 +123,7 @@
         background-position-x: 0px;
     }
     100% {
-        background-position-x: -1360px; /* TODO - hacerlo dinamico segun el ancho de la pantalla */
+        background-position-x: -100vw; /* TODO - hacerlo dinamico segun el ancho de la pantalla */
     }
 }
 #menu {
@@ -135,6 +139,7 @@
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    z-index: 3;
 }
 
 .maps {
@@ -200,11 +205,11 @@
         left: 250px;
     }
     30% {
-        top: 300px;
+        top: 60vh;
     }
     100% {
         left: 100px;
-        top: 490px;
+        top: 85vh;
         width: 95px;
     }
 }
@@ -220,8 +225,8 @@
     }
 }
 @keyframes character-container-jump {
-    0% {top: 490px;}
-    100% {top: 300px;}
+    0% {top: 85vh;}
+    100% {top: 60vh;}
 }
 
 @keyframes run {

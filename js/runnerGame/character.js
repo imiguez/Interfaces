@@ -36,7 +36,7 @@ export default class Character {
         this.characterContainer.style.width = this.width+"px";
         this.characterContainer.style.height = this.height+"px";
         this.characterContainer.style.position = "absolute";
-        this.characterContainer.style.top = this.top+"px";
+        this.characterContainer.style.top = this.top+"vh";
         this.characterContainer.style.left = this.left+"px";
         this.characterContainer.setAttribute("id", "character-container");
         this.character.setAttribute("id", "character");

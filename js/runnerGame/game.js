@@ -48,7 +48,7 @@ export default class Game {
         let random = (Math.floor(Math.random() * 6000) + 10000);
         let createLifes = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
-                let life = new Object("../../img/hearts.png", 30, 30, 40, 0, true, "90px 30px", true, "heart", this);
+                let life = new Object("../../img/hearts.png", 30, 30, 10, 0, true, "90px 30px", true, "heart", this);
                 life.playAnimation("having-lifes 0.8s linear infinite", "interactable-object 2s linear forwards");
             } else
                 clearInterval(createLifes);
@@ -62,7 +62,7 @@ export default class Game {
         let random = (Math.floor(Math.random() * 6000) + 8000);
         let createCoins = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
-                let coin = new Object("../../img/coin.png", 50, 50, 40, 0, true, "500px 50px", true, "coin", this);
+                let coin = new Object("../../img/coin.png", 50, 50, 10, 0, true, "500px 50px", true, "coin", this);
                 coin.playAnimation("coin 0.5s steps(9) infinite", "interactable-object 4s linear forwards");
             } else
                 clearInterval(createCoins);
@@ -76,7 +76,7 @@ export default class Game {
         let random = (Math.floor(Math.random() * 6000) + 3000);
         let createBats = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
-                let bat = new Object("../../img/bat.png", 48, 48, 40, 0, true, "192px 192px", false, "bat", this);
+                let bat = new Object("../../img/bat.png", 48, 48, 10, 0, true, "192px 192px", false, "bat", this);
                 bat.playAnimation("bat 0.5s steps(3) infinite", "interactable-object 4s linear forwards");
             } else {
                 clearInterval(createBats);
@@ -92,7 +92,7 @@ export default class Game {
         let random = (Math.floor(Math.random() * 6000) + 3000);
         let createWolfs = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
-                let wolf = new Object("../../img/wolf.png", 64, 32, 540, 0, false, "640px 384px", false, "wolf", this);
+                let wolf = new Object("../../img/wolf.png", 64, 32, 95, 0, false, "640px 384px", false, "wolf", this);
                 wolf.playAnimation("wolf 0.5s steps(4) infinite", "interactable-object 3s linear forwards");
             } else {
                 clearInterval(createWolfs);
@@ -108,7 +108,7 @@ export default class Game {
         let random = (Math.floor(Math.random() * 6000) + 3000);
         let createGoblins = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
-                let goblin = new Object("../../img/goblin.png", 60, 60, 506, 0, false, "704px 320px", false, "goblin", this);
+                let goblin = new Object("../../img/goblin.png", 60, 60, 92, 0, false, "704px 320px", false, "goblin", this);
                 goblin.playAnimation("goblin 1s steps(7) infinite", "interactable-object 50s linear forwards");
             } else {
                 clearInterval(createGoblins);
@@ -118,31 +118,6 @@ export default class Game {
                 random = (Math.floor(Math.random() * 6000) + 3000);
             }, random);
         }, random);
-    }
-
-    createObstacle(canFloat) { // Las propiedades del objeto deberian venir por parametro con una clase obstacle
-        let top = (490 - 60) + "px";
-        if (canFloat) 
-            top = (40 * (Math.floor(Math.random() * 4) + 7)) + "px"; //numero random entre 7 y 10
-        let obstacle = document.createElement("div");
-        obstacle.style.width = "60px";
-        obstacle.style.height = "60px";
-        obstacle.style.backgroundColor = "red";
-        obstacle.style.position = "absolute";
-        obstacle.style.right = "0";
-        obstacle.style.top = top;
-        document.body.insertBefore(obstacle, document.getElementById("character"));
-        setInterval(() => {
-            if (this.isCollidingWithTheCharacter(obstacle)) {
-                obstacle.style.animationPlayState = "paused";
-                this.map.stop();
-                this.character.removeLife();
-                this.finished = true;
-            }
-            if (this.finished) 
-                obstacle.style.animationPlayState = "paused";
-        }, 10);
-        obstacle.style.animation = "interactable-object 3s linear forwards";
     }
 
     addObjectCollectable(type) {
@@ -171,6 +146,7 @@ export default class Game {
                 this.finished = true;
                 this.map.stop();
                 this.character.die();
+                document.getElementById("heart").style.animation = "not-having-lifes 2s cubic-bezier(0.76, 0.22, 0.35, 0.93) 1 forwards";
             } else {
                 this.character.getHurts();
             }

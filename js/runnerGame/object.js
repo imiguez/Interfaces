@@ -34,7 +34,7 @@ export default class Object {
 
     createObject() {
         if (this.canFloat) // Si puede flotar se calcula un valor random para top a partir del valor que se le da en el constructor
-            this.top = (this.top * (Math.floor(Math.random() * 4) + 7)); // numero random entre 7 y 10, top = 40
+            this.top = (this.top * (Math.floor(Math.random() * 4) + 6)); // numero random entre 6 y 9
         this.object.style.width = this.width+"px";
         this.object.style.height = this.height+"px";
         this.object.style.backgroundImage = "url('"+this.sprite+"')";
@@ -43,7 +43,7 @@ export default class Object {
         this.objectContainer.style.height = this.height+"px";
         this.objectContainer.style.position = "absolute";
         this.objectContainer.style.right = this.right+"px";
-        this.objectContainer.style.top = this.top+"px";
+        this.objectContainer.style.top = this.top+"vh";
         this.objectContainer.appendChild(this.object);
         document.body.insertBefore(this.objectContainer, this.character);
     }
