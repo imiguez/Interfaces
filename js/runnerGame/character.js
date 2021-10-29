@@ -3,15 +3,19 @@ const up = 38;
 export default class Character {
     
     hasStarted = false;
-    character = document.getElementById("character3");
+    lifes = 1;
+    coinsCollected;
+    character = document.getElementById("character");
 
     constructor() {
     }
 
     setHasStarted(hasStarted) {
         this.hasStarted = hasStarted;
-        if (hasStarted) 
+        if (hasStarted) {
             this.character.style.animation = "run 1s steps(6) infinite";
+            this.coinsCollected = 0;
+        }
     }
 
     die() {
@@ -31,11 +35,38 @@ export default class Character {
         }, 600);
     }
 
+    addLife() {
+        if (this.lifes < 3) // Se pueden acumular 3 vidas
+            this.lifes++;
+    }
+
+    removeLife() {
+        if (this.lifes == 1) 
+            this.die();
+        this.lifes--;
+    }
+
+    addCoinCollected() {
+        this.coinsCollected++;
+    }
+
+    getCoinsCollected() {
+        return this.coinsCollected;
+    }
+
     getOffsetTop() {
         return this.character.offsetTop;
     }
 
     getOffsetHeight() {
         return this.character.offsetHeight;
+    }
+
+    getOffsetLeft() {
+        return this.character.offsetLeft;
+    }
+
+    getOffsetWidth() {
+        return this.character.offsetWidth;
     }
 }

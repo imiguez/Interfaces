@@ -1,5 +1,75 @@
-body {
+* {
     margin: 0;
+    font-family: "ＭＳ Ｐゴシック";
+    font: 16px bold;
+}
+
+#coins-counter, #lifes-counter {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+}
+
+#lifes-counter {
+    width: 150px;
+    height: 70px;
+    margin-left: 10px;
+    border: 2px solid tomato;
+    left: 0;
+}
+
+#coins-counter {
+    justify-content: right;
+    width: 200px;
+    right: 0;
+}
+
+#heart {
+    width: 50px;
+    height: 50px;
+    background-image: url("../img/hearts.png");
+    background-size: 150px 50px;
+    animation: having-lifes 1s linear infinite;
+}
+
+@keyframes having-lifes {
+    0% {transform: scale(1);}
+    50% {transform: scale(1);}
+    75% {transform: scale(1.2);}
+    80% {transform: scale(1);}
+    85% {transform: scale(1.2);}
+}
+
+@keyframes not-having-lifes {
+    0% {
+        background-position-x: 53px;
+    }
+    50% {
+        transform: scale(0.5) rotate(180deg);
+    }
+    100% {
+        background-position-x: 53px;
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+#coin {
+    width: 100px;
+    height: 100px;
+    background-image: url("../img/coin.png");
+    transform: scale(0.5);
+    animation: coin 0.5s steps(9) infinite;
+}
+
+.amount-collected {
+    width: 50px;
+    height: 40px;
+    margin: 0%;
+    padding: 0%;
+    color: white;
+    font: 35px bolder;
+    text-align: right;
 }
 
 .layer {
@@ -81,7 +151,7 @@ body {
     cursor: pointer;
 }
 
-#character3 {
+#character {
     width: 60px; 
     height: 65px;
     position: absolute;
@@ -90,6 +160,7 @@ body {
     background: url("../img/character3.png") no-repeat;
     background-position-x: -10px;
     background-position-y: -292px;
+    transform: scale(1.5);
 }
 
 @keyframes die {
@@ -142,9 +213,31 @@ body {
     /* animation: obstacle-1 2s linear infinite; */
 }
 
-@keyframes obstacle-1 {
+@keyframes interactable-object {
     0% {right: 0;}
     100% {right: 100%;}
+}
+
+@keyframes coin {
+    0% {
+        right: 0;
+        background-position-x: 0%;
+    }
+    100% {
+        right: 100%;
+        background-position-x: 100%;
+    }
+}
+
+@keyframes bat {
+    0% {
+        background-position-x: 100%;
+        background-position-y: -144px;
+    }
+    100% {
+        background-position-x: 0%;
+        background-position-y: -144px;
+    }
 }
 
 /* 

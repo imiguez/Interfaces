@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let game = new Game(character, map);
         setTimeout(game.startGame(), 1000);
         document.getElementById("menu").setAttribute("style", "display: none");
+        document.getElementById("coins-counter").setAttribute("style", "display: flex;");
     } 
 
 });

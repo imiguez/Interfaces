@@ -29,8 +29,5 @@ export default class Map {
         });
     }
 
-    generateRandomCoins() {
-        
-    }
 
 }
