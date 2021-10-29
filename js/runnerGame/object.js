@@ -11,7 +11,7 @@ export default class Object {
     right;
     canFloat;
     backgroundSize;
-    character = document.getElementById("character");
+    character = document.getElementById("character-container");
     isCollectable;
     game;
     name = "";
@@ -51,16 +51,15 @@ export default class Object {
     playAnimation(animationObject, animationContainer = null) {
         setInterval(() => {
             if (this.game.getFinished()) {
-                this.object.style.animationPlayState = "paused";
                 this.objectContainer.style.animationPlayState = "paused";
             }
             if (this.isCollidingWithTheCharacter()) {
                 if (this.isCollectable) {
-                    this.objectContainer.style.display = "none";
                     this.game.addObjectCollectable(this.name);
                 } else {
                     this.game.removeLife();
                 }
+                this.objectContainer.style.display = "none";
             }
         }, 10);
         this.object.style.animation = animationObject;
@@ -69,7 +68,6 @@ export default class Object {
     }
 
     isCollidingWithTheCharacter() {
-        this.character = document.getElementById("character");
         let charLeft = this.character.offsetLeft;
         let charWidth = this.character.offsetWidth;
         if ((this.objectContainer.offsetLeft >= charLeft && this.objectContainer.offsetLeft <= charLeft + charWidth)

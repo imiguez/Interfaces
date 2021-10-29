@@ -33,6 +33,8 @@ export default class Game {
         this.generateCoins();
         this.generateLifes();
         this.generateBat();
+        this.generateWolf()
+        // this.generateGoblins();
         window.onkeydown = (e) => {
             if (e.keyCode == up && !jump) {
                 jump = true;
@@ -43,7 +45,7 @@ export default class Game {
     }
     
     generateLifes() {
-        let random = (Math.floor(Math.random() * 6000) + 20000);
+        let random = (Math.floor(Math.random() * 6000) + 10000);
         let createLifes = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
                 let life = new Object("../../img/hearts.png", 30, 30, 40, 0, true, "90px 30px", true, "heart", this);
@@ -51,7 +53,7 @@ export default class Game {
             } else
                 clearInterval(createLifes);
             setTimeout(() => {
-                random = (Math.floor(Math.random() * 6000) + 20000);
+                random = (Math.floor(Math.random() * 6000) + 10000);
             }, random);
         }, random);
     }
@@ -76,8 +78,42 @@ export default class Game {
             if (!this.finished || this.lifes > 0) {
                 let bat = new Object("../../img/bat.png", 48, 48, 40, 0, true, "192px 192px", false, "bat", this);
                 bat.playAnimation("bat 0.5s steps(3) infinite", "interactable-object 4s linear forwards");
-            } else
+            } else {
                 clearInterval(createBats);
+
+            }
+            setTimeout(() => {
+                random = (Math.floor(Math.random() * 6000) + 3000);
+            }, random);
+        }, random);
+    }
+
+    generateWolf() {
+        let random = (Math.floor(Math.random() * 6000) + 3000);
+        let createWolfs = setInterval(() => {
+            if (!this.finished || this.lifes > 0) {
+                let wolf = new Object("../../img/wolf.png", 64, 32, 540, 0, false, "640px 384px", false, "wolf", this);
+                wolf.playAnimation("wolf 0.5s steps(4) infinite", "interactable-object 3s linear forwards");
+            } else {
+                clearInterval(createWolfs);
+
+            }
+            setTimeout(() => {
+                random = (Math.floor(Math.random() * 6000) + 3000);
+            }, random);
+        }, random);
+    }
+
+    generateGoblins() {
+        let random = (Math.floor(Math.random() * 6000) + 3000);
+        let createGoblins = setInterval(() => {
+            if (!this.finished || this.lifes > 0) {
+                let goblin = new Object("../../img/goblin.png", 60, 60, 506, 0, false, "704px 320px", false, "goblin", this);
+                goblin.playAnimation("goblin 1s steps(7) infinite", "interactable-object 50s linear forwards");
+            } else {
+                clearInterval(createGoblins);
+
+            }
             setTimeout(() => {
                 random = (Math.floor(Math.random() * 6000) + 3000);
             }, random);
@@ -109,20 +145,6 @@ export default class Game {
         obstacle.style.animation = "interactable-object 3s linear forwards";
     }
 
-    isCollidingWithTheCharacter(object) {
-        let charLeft = this.character.getOffsetLeft();
-        let charWidth = this.character.getOffsetWidth();
-        if ((object.offsetLeft >= charLeft && object.offsetLeft <= charLeft + charWidth)
-          || object.offsetLeft+object.offsetWidth >= charLeft && object.offsetLeft+object.offsetWidth <= charLeft + charWidth) {
-            let charTop = this.character.getOffsetTop();
-            let charHeight = this.character.getOffsetHeight();
-            if (object.offsetTop <= charTop+charHeight && object.offsetTop >= charTop) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     addObjectCollectable(type) {
         switch (type) {
             case "coin":
@@ -132,8 +154,7 @@ export default class Game {
             case "heart":
                 if (this.lifes < 3) {
                     this.lifes++;
-                    console.log(this.lifes);
-                    console.log(this.lifesCounter);
+                    console.log("le quedan: "+this.lifes+" vidas");
                     this.lifesCounter.innerHTML = this.lifes;
                 }
                 break;
@@ -143,11 +164,22 @@ export default class Game {
     }
 
     removeLife() {
-        this.lifes--;
-        if (this.lifes < 1) {
-            this.finished = true;
+        if (!this.character.getIsGettingDamage()) {
+            this.character.setIsGettingDamage(true);
+            this.lifes--;
+            if (this.lifes < 1) {
+                this.finished = true;
+                this.map.stop();
+                this.character.die();
+            } else {
+                this.character.getHurts();
+            }
+            this.lifesCounter.innerHTML = this.lifes;
+            setTimeout(() => {
+                this.character.setIsGettingDamage(false);
+            }, 600);
         }
-        this.lifesCounter.innerHTM = this.lifes;
+        console.log("le quedan: "+this.lifes+" vidas");
     }
 
     getFinished() {

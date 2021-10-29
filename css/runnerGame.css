@@ -15,7 +15,6 @@
     width: 150px;
     height: 70px;
     margin-left: 10px;
-    border: 2px solid tomato;
     left: 0;
 }
 
@@ -84,34 +83,34 @@
 }
 
 .layer-1 {
-    background-image: url("../img/layers/sky.png");
+    background-image: url("../img/layers-1/sky.png");
 }
 .layer-2 {
-    background-image: url("../img/layers/clouds_2.png");
+    background-image: url("../img/layers-1/clouds_2.png");
     /* animation: background 70s linear infinite; */
 }
 .layer-3 {
-    background-image: url("../img/layers/rocks.png");
+    background-image: url("../img/layers-1/rocks.png");
     /* animation: background 120s linear infinite; */
 }
 .layer-4 {
-    background-image: url("../img/layers/clouds_1.png");
+    background-image: url("../img/layers-1/clouds_1.png");
     /* animation: background 50s linear infinite; */
 }
 .layer-5 {
-    background-image: url("../img/layers/ground_1.png");
+    background-image: url("../img/layers-1/ground_1.png");
     /* animation: background 80s linear infinite; */
 }
 .layer-6 {
-    background-image: url("../img/layers/ground_2.png");
+    background-image: url("../img/layers-1/ground_2.png");
     /* animation: background 40s linear infinite; */
 }
 .layer-7 {
-    background-image: url("../img/layers/ground_3.png");
+    background-image: url("../img/layers-1/ground_3.png");
     /* animation: background 10s linear infinite; */
 }
 .layer-8 {
-    background-image: url("../img/layers/plant.png");
+    background-image: url("../img/layers-1/plant.png");
     /* animation: background 10s linear infinite; */
 }
 
@@ -133,8 +132,28 @@
     border: 2px dashed black;
     border-radius: 10px;
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
     align-items: center;
+}
+
+.maps {
+    width: 40%;
+    height: 20vh;
+    background-size: cover;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 255, 0);
+}
+.maps:hover {
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+#map-1 {
+    background-image: url("../img/layers-1/map.png");
+}
+#map-2 {
+    background-image: url("../img/layers-2/map.png");
 }
 
 #start-btn {
@@ -150,45 +169,59 @@
     background-color: #113f67;
     cursor: pointer;
 }
-
-#character {
-    width: 60px; 
-    height: 65px;
+/* 
+#character-container {
     position: absolute;
     top: 490px;
+    width: 60px; 
+    height: 65px;
     left: 250px;
     background: url("../img/character3.png") no-repeat;
     background-position-x: -10px;
     background-position-y: -292px;
     transform: scale(1.5);
-}
+} */
 
-@keyframes die {
+@keyframes character-die {
     0% {
         background-position-x: -240px;
         background-position-y: -292px;
-        left: 150px;
         width: 75px;
     }
     100% {
         background-position-x: -490px;
         background-position-y: -292px;
-        top: 490px;
+        width: 95px;
+    }
+}
+@keyframes character-container-die {
+    0% {
+        width: 75px;
+        left: 250px;
+    }
+    30% {
+        top: 300px;
+    }
+    100% {
         left: 100px;
+        top: 490px;
         width: 95px;
     }
 }
 
-@keyframes jump {
+@keyframes character-jump {
     0% {
-        background-position-x: -170px;
+        background-position-x: -10px;
         background-position-y: -292px;
     }
     100% {
-        background-position-x: -170px;
+        background-position-x: -250px;
         background-position-y: -292px;
-        top: 300px;
     }
+}
+@keyframes character-container-jump {
+    0% {top: 490px;}
+    100% {top: 300px;}
 }
 
 @keyframes run {
@@ -237,6 +270,28 @@
     100% {
         background-position-x: 0%;
         background-position-y: -144px;
+    }
+}
+
+@keyframes wolf {
+    0% {
+        background-position-y: -320px;
+        background-position-x: -320px;
+    }
+    100% {
+        background-position-x: -576px;
+        background-position-y: -320px;
+    }
+}
+
+@keyframes goblin {
+    0% {
+        background-position-y: -192px;
+        background-position-x: -455px; 
+    }
+    100% {
+        background-position-x: 0px;
+        background-position-y: -192px;
     }
 }
 
