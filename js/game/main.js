@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let board = new Board(ctx, posXBoard, 0, 12*40, canvas.height, chipsAndBoardPiecesAmount);
     board.setBoard();
     let player1 = new Player(ctx, 0, 0, playersWidth, canvas.height, chipsAndBoardPiecesAmount*chipsAndBoardPiecesAmount/2, "player 1", "img/red-chip.png");
-    let player2 = new Player(ctx, (canvas.width/2 + 6*40), 0, playersWidth, canvas.height, chipsAndBoardPiecesAmount*chipsAndBoardPiecesAmount/2, "player 2", "img/black-chip.png");
+    let player2 = new Player(ctx, (canvas.width/2 + 6*40), 0, playersWidth, canvas.height, chipsAndBoardPiecesAmount*chipsAndBoardPiecesAmount/2, "player 2", "./img/black-chip.png");
     let game = new Game(board, ctx, player1, player2, xInLineWinCondition);
     document.getElementById("x-in-line").onchange = () => {
         xInLineWinCondition = document.getElementById("x-in-line").value;
