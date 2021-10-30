@@ -2,6 +2,7 @@
     margin: 0;
     font-family: "ＭＳ Ｐゴシック";
     font: 16px bold;
+    color: white;
 }
 
 #coins-counter, #lifes-counter {
@@ -86,38 +87,6 @@
     z-index: 2;
 }
 
-.layer-1 {
-    background-image: url("../img/layers-1/sky.png");
-}
-.layer-2 {
-    background-image: url("../img/layers-1/clouds_2.png");
-    /* animation: background 70s linear infinite; */
-}
-.layer-3 {
-    background-image: url("../img/layers-1/rocks.png");
-    /* animation: background 120s linear infinite; */
-}
-.layer-4 {
-    background-image: url("../img/layers-1/clouds_1.png");
-    /* animation: background 50s linear infinite; */
-}
-.layer-5 {
-    background-image: url("../img/layers-1/ground_1.png");
-    /* animation: background 80s linear infinite; */
-}
-.layer-6 {
-    background-image: url("../img/layers-1/ground_2.png");
-    /* animation: background 40s linear infinite; */
-}
-.layer-7 {
-    background-image: url("../img/layers-1/ground_3.png");
-    /* animation: background 10s linear infinite; */
-}
-.layer-8 {
-    background-image: url("../img/layers-1/plant.png");
-    /* animation: background 10s linear infinite; */
-}
-
 @keyframes background {
     0% {
         background-position-x: 0px;
@@ -126,10 +95,10 @@
         background-position-x: -100vw; /* TODO - hacerlo dinamico segun el ancho de la pantalla */
     }
 }
-#menu {
+#menu, #game-finished {
     width: 30%;
     height: 40vh;
-    top: 30vh;
+    top: 25vh;
     left: 35%;
     background-color: #0a2e4eee;
     position: absolute;
@@ -144,24 +113,58 @@
 .maps {
     width: 40%;
     height: 15vh;
-    margin: auto;
-    background-size: cover;
+    margin: auto 2%;
     border-radius: 5px;
-    border: 1px solid rgba(0, 0, 255, 0);
+    border: 1px solid rgba(0, 0, 0, 0);
 }
-.maps:hover {
+.maps:hover, .characters:hover {
     cursor: pointer;
     border: 1px solid black;
 }
 
 #map-1 {
+    background-size: cover;
     background-image: url("../img/layers-1/map.png");
 }
 #map-2 {
+    background-size: cover;
     background-image: url("../img/layers-2/map.png");
 }
+.characters {
+    margin: auto 8%;
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+#char-1 {
+    width: 90px;
+    height: 99px;
+    background-position-x: -20px;
+    background-position-y: -438px;
+    background-image: url("../img/character3.png");
+    background-size: 945px 693px;
+}
+#char-2 {
+    width: 90px;
+    height: 110px;
+    background-position-x: -20px;
+    background-position-y: -170px;
+    background-image: url("../img/character2.png");
+    background-size: 2000px 1100px;
+}
 
-#start-btn {
+#menu #coins-to-win-container {
+    width: 70%;
+    margin: auto 15%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#menu label {
+    height: 16px;
+    margin-left: 35px;
+    margin-right: 15px;
+}
+
+#start-btn, #game-finished button {
     margin: auto calc(50% - 100px);
     width: 100px;
     height: 50px;
@@ -170,10 +173,21 @@
     border: 1px solid #113f67;
     color: white;
 }
-#start-btn:hover {
+#start-btn:hover, #game-finished button {
     color: #a2a8d3;
     background-color: #113f67;
     cursor: pointer;
+}
+#game-finished {
+    display: none;
+    justify-content: center;
+    align-content: center;
+}
+#game-finished p {
+    font: 40px bold;
+}
+#game-finished button {
+    margin: 100px calc(50%-100);
 }
 
 @keyframes character-die {

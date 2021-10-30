@@ -22,13 +22,25 @@
         <p class="amount-collected" id="lifes-collected">1</p>
     </div>
     <div id="coins-counter">
-        <p class="amount-collected" id="coins-collected">0</p>
+        <p class="amount-collected" id="coins-collected">0/10</p>
         <div id="coin"></div>
     </div>
     <div id="menu">
         <div class="maps" id="map-1"></div>
         <div class="maps" id="map-2"></div>
+        <div id="coins-to-win-container">
+            <label for="">10</label>
+            <input type="radio" name="coins-to-win" id="20-coins-to-win" checked="checked">
+            <label for="">40</label>
+            <input type="radio" name="coins-to-win" id="40-coins-to-win">
+            <label for="">80</label>
+            <input type="radio" name="coins-to-win" id="80-coins-to-win">
+        </div>
         <button id="start-btn">Start</button>
+    </div>
+    <div id="game-finished">
+        <p></p>
+        <button id="restart-btn">Restart</button>
     </div>
     <div id="character"></div>
 

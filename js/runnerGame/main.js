@@ -4,6 +4,7 @@ import Game from "./game.js";
 
 
 document.addEventListener("DOMContentLoaded", () => {
+    let winCondition = 10;
     let character = new Character(90, 99, 88, 250, "../../img/character3.png", "-20px -310px", "945px 693px");//w, h, t, l, img, bgPos, scale
     let map = new Map();
     let layers1 = [
@@ -53,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ]
     map.setLayers(layers1); //default
     let maps = document.querySelectorAll(".maps");
+    let coinsToWin = document.getElementsByName("coins-to-win");
     maps[0].onclick = () => {
         console.log("mapa 1 seleccionado");
         console.log(layers1);
@@ -63,12 +65,27 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(layers2);
         map.setLayers(layers2);
     }
+    coinsToWin[0].onclick = () => {
+        winCondition = 10;
+        document.getElementById("coins-collected").innerHTML = "0/10";
+    }
+    coinsToWin[1].onclick = () => {
+        winCondition = 40;
+        document.getElementById("coins-collected").innerHTML = "0/40";
+    }
+    coinsToWin[2].onclick = () => {
+        winCondition = 80;
+        document.getElementById("coins-collected").innerHTML = "0/80";
+    }
     document.getElementById("start-btn").onclick = () => {
         let game = new Game(character, map);
+        game.setCoinsToWin(winCondition);
         map.startLayersAnimation();
         setTimeout(game.startGame(), 1000);
         document.getElementById("menu").setAttribute("style", "display: none");
         document.getElementById("coins-counter").setAttribute("style", "display: flex;");
     } 
-
+    document.getElementById("restart-btn").onclick = () => {
+        window.location.reload();
+    }
 });

@@ -13,6 +13,7 @@ export default class Game {
     coinsCounter;
     lifes;
     lifesCounter;
+    coinsToWin;
     finished;
 
     constructor(character, map) {
@@ -22,6 +23,9 @@ export default class Game {
         this.lifesCounter = document.getElementById("lifes-collected");
     }
 
+    setCoinsToWin(coins) {
+        this.coinsToWin = coins;
+    }
 
     startGame() {
         this.finished = false;
@@ -59,7 +63,7 @@ export default class Game {
     }
 
     generateCoins() {
-        let random = (Math.floor(Math.random() * 6000) + 8000);
+        let random = (Math.floor(Math.random() * 4000) + 1000);
         let createCoins = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
                 let coin = new Object("../../img/coin.png", 50, 50, 10, 0, true, "500px 50px", true, "coin", this);
@@ -67,13 +71,13 @@ export default class Game {
             } else
                 clearInterval(createCoins);
             setTimeout(() => {
-                random = (Math.floor(Math.random() * 6000) + 8000);
+                random = (Math.floor(Math.random() * 4000) + 1000);
             }, random);
         }, random);
     }
 
     generateBat() {
-        let random = (Math.floor(Math.random() * 2000) + 1000);
+        let random = (Math.floor(Math.random() * 8000) + 1000);
         let createBats = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
                 let bat = new Object("../../img/bat.png", 48, 48, 10, 0, true, "192px 192px", false, "bat", this);
@@ -83,7 +87,7 @@ export default class Game {
 
             }
             setTimeout(() => {
-                random = (Math.floor(Math.random() * 2000) + 1000);
+                random = (Math.floor(Math.random() * 8000) + 1000);
             }, random);
         }, random);
     }
@@ -124,7 +128,13 @@ export default class Game {
         switch (type) {
             case "coin":
                 this.coins++;
-                this.coinsCounter.innerHTML = this.coins;
+                this.coinsCounter.innerHTML = this.coins+"/"+this.coinsToWin;
+                if (this.coins == this.coinsToWin) {
+                    document.getElementById("game-finished").setAttribute("style", "display: flex;");
+                    document.querySelector("#game-finished > p").innerHTML = "You Win!";
+                    this.finished = true;
+                    this.map.stop();
+                }
                 break;
             case "heart":
                 if (this.lifes < 3) {
@@ -150,6 +160,10 @@ export default class Game {
                 this.map.stop();
                 this.character.die();
                 document.getElementById("heart").style.animation = "not-having-lifes 2s cubic-bezier(0.76, 0.22, 0.35, 0.93) 1 forwards";
+                setTimeout(() => {
+                    document.getElementById("game-finished").setAttribute("style", "display: flex;");
+                    document.querySelector("#game-finished > p").innerHTML = "You Lose!";
+                }, 1000);
             } else {
                 this.character.getHurts();
             }
