@@ -4,7 +4,7 @@ import Game from "./game.js";
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    let character = new Character(60, 65, 90, 250, "../../img/character3.png", "-10px -292px", 1.5);//w, h, t, l, img, bgPos, scale
+    let character = new Character(90, 99, 88, 250, "../../img/character3.png", "-20px -310px", "945px 693px");//w, h, t, l, img, bgPos, scale
     let map = new Map();
     let layers1 = [
         {

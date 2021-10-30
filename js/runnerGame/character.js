@@ -12,9 +12,9 @@ export default class Character {
     left;
     sprite;
     backgroundPos;
-    scale;
+    backgroundSize;
 
-    constructor(w, h, t, l, img, bgPos, scale) {
+    constructor(w, h, t, l, img, bgPos, bgSize) {
         this.characterContainer = document.createElement("div");
         this.character = document.createElement("div");
         this.width = w;
@@ -23,7 +23,7 @@ export default class Character {
         this.left = l;
         this.sprite = img;
         this.backgroundPos = bgPos;
-        this.scale = scale;
+        this.backgroundSize = bgSize;
         this.createCharacter();
     }
 
@@ -32,7 +32,7 @@ export default class Character {
         this.character.style.height = this.height+"px";
         this.character.style.backgroundImage = "url('"+this.sprite+"')";
         this.character.style.backgroundPosition = this.backgroundPos;
-        this.character.style.transform = "scale("+this.scale+")";
+        this.character.style.backgroundSize = this.backgroundSize;
         this.characterContainer.style.width = this.width+"px";
         this.characterContainer.style.height = this.height+"px";
         this.characterContainer.style.position = "absolute";
@@ -56,22 +56,22 @@ export default class Character {
         if (this.hasStarted) {
             this.setHasStarted(false);
             this.characterContainer.style.top = this.characterContainer.offsetTop+"px";
-            this.character.style.animation = "character-die 1s steps(3) 1 forwards";
-            this.characterContainer.style.animation = "character-container-die 1s ease-out 1 forwards";
+            this.character.style.animation = "character-die 0.8s steps(3) 1 forwards";
+            this.characterContainer.style.animation = "character-container-die 0.8s linear 1 forwards";
         }
     }
 
     jump() {
         if (this.hasStarted && this.character.style.animationName != "jump") {
-            this.characterContainer.style.animation = "character-container-jump 0.3s cubic-bezier(0, 0, 0.08, 1.08) 2 alternate"
-            this.character.style.animation = "character-jump 0.3s steps(3) 2 alternate";
+            this.characterContainer.style.animation = "character-container-jump 0.5s cubic-bezier(0, 0, 0.08, 1.08) 2 alternate"
+            this.character.style.animation = "character-jump 0.5s steps(3) 2 alternate";
         }
         setTimeout(() => {
             if (this.hasStarted) {
                 this.character.style.animation = "run 1s steps(6) infinite";
                 this.characterContainer.style.animation = "none";
             }
-        }, 600);
+        }, 1050);
     }
 
     getHurts() {

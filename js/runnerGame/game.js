@@ -45,7 +45,7 @@ export default class Game {
     }
     
     generateLifes() {
-        let random = (Math.floor(Math.random() * 6000) + 10000);
+        let random = (Math.floor(Math.random() * 20000) + 8000);
         let createLifes = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
                 let life = new Object("../../img/hearts.png", 30, 30, 10, 0, true, "90px 30px", true, "heart", this);
@@ -53,7 +53,7 @@ export default class Game {
             } else
                 clearInterval(createLifes);
             setTimeout(() => {
-                random = (Math.floor(Math.random() * 6000) + 10000);
+                random = (Math.floor(Math.random() * 20000) + 8000);
             }, random);
         }, random);
     }
@@ -73,7 +73,7 @@ export default class Game {
     }
 
     generateBat() {
-        let random = (Math.floor(Math.random() * 6000) + 3000);
+        let random = (Math.floor(Math.random() * 2000) + 1000);
         let createBats = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
                 let bat = new Object("../../img/bat.png", 48, 48, 10, 0, true, "192px 192px", false, "bat", this);
@@ -83,13 +83,13 @@ export default class Game {
 
             }
             setTimeout(() => {
-                random = (Math.floor(Math.random() * 6000) + 3000);
+                random = (Math.floor(Math.random() * 2000) + 1000);
             }, random);
         }, random);
     }
 
     generateWolf() {
-        let random = (Math.floor(Math.random() * 6000) + 3000);
+        let random = (Math.floor(Math.random() * 10000) + 1000);
         let createWolfs = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
                 let wolf = new Object("../../img/wolf.png", 64, 32, 95, 0, false, "640px 384px", false, "wolf", this);
@@ -99,7 +99,7 @@ export default class Game {
 
             }
             setTimeout(() => {
-                random = (Math.floor(Math.random() * 6000) + 3000);
+                random = (Math.floor(Math.random() * 10000) + 1000);
             }, random);
         }, random);
     }
@@ -139,6 +139,9 @@ export default class Game {
     }
 
     removeLife() {
+        if (this.finished) {
+            return;
+        }
         if (!this.character.getIsGettingDamage()) {
             this.character.setIsGettingDamage(true);
             this.lifes--;
