@@ -1,0 +1,332 @@
+* {
+    margin: 0;
+    font-family: "ＭＳ Ｐゴシック";
+    font: 16px bold;
+    color: white;
+}
+
+#coins-counter, #lifes-counter {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+}
+
+#lifes-counter {
+    width: 150px;
+    height: 70px;
+    margin-left: 10px;
+    left: 0;
+}
+
+#coins-counter {
+    justify-content: right;
+    width: 200px;
+    right: 0;
+}
+
+#heart {
+    width: 50px;
+    height: 50px;
+    background-image: url("../img/hearts.png");
+    background-size: 150px 50px;
+    animation: having-lifes 1s linear infinite;
+}
+
+@keyframes having-lifes {
+    0% {transform: scale(1);}
+    50% {transform: scale(1);}
+    75% {transform: scale(1.2);}
+    80% {transform: scale(1);}
+    85% {transform: scale(1.2);}
+}
+
+@keyframes not-having-lifes {
+    0% {
+        background-position-x: 53px;
+    }
+    50% {
+        transform: scale(0.5) rotate(180deg);
+    }
+    100% {
+        background-position-x: 53px;
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+#coin {
+    width: 100px;
+    height: 100px;
+    background-image: url("../img/coin.png");
+    transform: scale(0.5);
+    animation: coin 0.5s steps(9) infinite;
+}
+
+.amount-collected {
+    width: 50px;
+    height: 40px;
+    margin: 0%;
+    padding: 0%;
+    color: white;
+    font: 35px bolder;
+    text-align: right;
+}
+
+.layer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-repeat: repeat-x;
+    background-size: cover;
+    z-index: -1;
+    top: 0;
+    left: 0;
+}
+
+#layer-plant {
+    z-index: 2;
+}
+
+@keyframes background {
+    0% {
+        background-position-x: 0px;
+    }
+    100% {
+        background-position-x: -100vw; /* TODO - hacerlo dinamico segun el ancho de la pantalla */
+    }
+}
+#menu, #game-finished {
+    width: 30%;
+    height: 40vh;
+    top: 25vh;
+    left: 35%;
+    background-color: #0a2e4eee;
+    position: absolute;
+    border: 2px dashed black;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    z-index: 3;
+}
+
+.maps {
+    width: 40%;
+    height: 15vh;
+    margin: auto 2%;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+.maps:hover, .characters:hover {
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+#map-1 {
+    background-size: cover;
+    background-image: url("../img/layers-1/map.png");
+}
+#map-2 {
+    background-size: cover;
+    background-image: url("../img/layers-2/map.png");
+}
+.characters {
+    margin: auto 8%;
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+#char-1 {
+    width: 90px;
+    height: 99px;
+    background-position-x: -20px;
+    background-position-y: -438px;
+    background-image: url("../img/character3.png");
+    background-size: 945px 693px;
+}
+#char-2 {
+    width: 90px;
+    height: 110px;
+    background-position-x: -20px;
+    background-position-y: -170px;
+    background-image: url("../img/character2.png");
+    background-size: 2000px 1100px;
+}
+
+#menu #coins-to-win-container {
+    width: 70%;
+    margin: auto 15%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#menu label {
+    height: 16px;
+    margin-left: 35px;
+    margin-right: 15px;
+}
+
+#start-btn, #game-finished button {
+    margin: auto calc(50% - 100px);
+    width: 100px;
+    height: 50px;
+    background-color: #38598b;
+    border-radius: 5px;
+    border: 1px solid #113f67;
+    color: white;
+}
+#start-btn:hover, #game-finished button {
+    color: #a2a8d3;
+    background-color: #113f67;
+    cursor: pointer;
+}
+#game-finished {
+    display: none;
+    justify-content: center;
+    align-content: center;
+}
+#game-finished p {
+    font: 40px bold;
+}
+#game-finished button {
+    margin: 100px calc(50%-100);
+}
+
+@keyframes character-die {
+    0% {
+        background-position-x: -360px;
+        background-position-y: -438px;
+        width: 100px;
+    }
+    100% {
+        background-position-x: -735px;
+        background-position-y: -438px;
+        width: 142px;
+    }
+}
+@keyframes character-container-die {
+    0% {
+        width: 75px;
+        left: 250px;
+    }
+    100% {
+        left: 100px;
+        top: 90vh;
+        width: 142px;
+    }
+}
+
+@keyframes character-jump {
+    0% {
+        background-position-x: -20px;
+        background-position-y: -438px;
+    }
+    100% {
+        background-position-x: -380px;
+        background-position-y: -438px;
+    }
+}
+@keyframes character-container-jump {
+    0% {top: 88vh;}
+    100% {top: 55vh;}
+}
+
+@keyframes run {
+    0% {
+        background-position-x: -20px; 
+        background-position-y: -310px;
+    }
+    100% {
+        background-position-x: -725px;
+        background-position-y: -305px;
+    }
+}
+
+#obstacle-1 {
+    display: none;
+    width: 70px;
+    height: 70px;
+    background-color: red;
+    position: absolute;
+    bottom: 30px;
+    right: 0;
+    /* animation: obstacle-1 2s linear infinite; */
+}
+
+@keyframes interactable-object {
+    0% {right: 0;}
+    100% {right: 100%;}
+}
+
+@keyframes coin {
+    0% {
+        right: 0;
+        background-position-x: 0%;
+    }
+    100% {
+        right: 100%;
+        background-position-x: 100%;
+    }
+}
+
+@keyframes bat {
+    0% {
+        background-position-x: 100%;
+        background-position-y: -144px;
+    }
+    100% {
+        background-position-x: 0%;
+        background-position-y: -144px;
+    }
+}
+
+@keyframes wolf {
+    0% {
+        background-position-y: -320px;
+        background-position-x: -320px;
+    }
+    100% {
+        background-position-x: -576px;
+        background-position-y: -320px;
+    }
+}
+
+@keyframes goblin {
+    0% {
+        background-position-y: -192px;
+        background-position-x: -455px; 
+    }
+    100% {
+        background-position-x: 0px;
+        background-position-y: -192px;
+    }
+}
+
+/* 
+#character4 {
+    width: 60px; 
+    height: 80px;
+    border: 2px solid red;
+    position: absolute;
+    top: 490px;
+    left: 250px;
+    background: url("../img/character/run/1.png") no-repeat;
+    animation: run 1s steps(6) infinite;
+} */
+/* 
+#character2 {
+    width: 120px; 
+    height: 150px;
+    border: 2px solid red;
+    background: url("../img/character2.png") no-repeat;
+    animation: runCharacter2 1s steps(9) infinite;
+}
+
+@keyframes runCharacter2 {
+    0% {
+        background-position-x: -30px;
+        background-position-y: -210px;
+    }
+    100% {
+        background-position-x: -1168px;
+        background-position-y: -210px;
+    }
+} */
