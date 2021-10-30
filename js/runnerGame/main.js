@@ -9,46 +9,46 @@ document.addEventListener("DOMContentLoaded", () => {
     let map = new Map();
     let layers1 = [
         {
-            "src": "../../img/layers-1/sky.png",
+            "src": "../img/layers-1/sky.png",
             "animation": "none"
         }, {
-            "src": "../../img/layers-1/clouds_2.png",
+            "src": "../img/layers-1/clouds_2.png",
             "animation": "background 70s linear infinite"
         }, {
-            "src": "../../img/layers-1/rocks.png",
+            "src": "../img/layers-1/rocks.png",
             "animation": "background 120s linear infinite"
         }, {
-            "src": "../../img/layers-1/clouds_1.png",
+            "src": "../img/layers-1/clouds_1.png",
             "animation": "background 50s linear infinite"
         }, {
-            "src": "../../img/layers-1/ground_1.png",
+            "src": "../img/layers-1/ground_1.png",
             "animation": "background 80s linear infinite"
         }, {
-            "src": "../../img/layers-1/ground_2.png",
+            "src": "../img/layers-1/ground_2.png",
             "animation": "background 40s linear infinite"
         }, {
-            "src": "../../img/layers-1/ground_3.png",
+            "src": "../img/layers-1/ground_3.png",
             "animation": "background 10s linear infinite"
         }, {
-            "src": "../../img/layers-1/plant.png",
+            "src": "../img/layers-1/plant.png",
             "animation": "background 5s linear infinite"
         }
     ];
     let layers2 = [
         {
-            "src": "../../img/layers-2/sky.png",
+            "src": "../img/layers-2/sky.png",
             "animation": "none"
         }, {
-            "src": "../../img/layers-2/clouds_1.png",
+            "src": "../img/layers-2/clouds_1.png",
             "animation": "background 90s linear infinite"
         }, {
-            "src": "../../img/layers-2/rocks.png",
+            "src": "../img/layers-2/rocks.png",
             "animation": "background 120s linear infinite"
         }, {
-            "src": "../../img/layers-2/clouds_2.png",
+            "src": "../img/layers-2/clouds_2.png",
             "animation": "background 40s linear infinite"
         }, {
-            "src": "../../img/layers-2/ground.png",
+            "src": "../img/layers-2/ground.png",
             "animation": "background 10s linear infinite"
         }
     ]

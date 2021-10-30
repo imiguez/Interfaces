@@ -52,7 +52,7 @@ export default class Game {
         let random = (Math.floor(Math.random() * 20000) + 8000);
         let createLifes = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
-                let life = new Object("../../img/hearts.png", 30, 30, 10, 0, true, "90px 30px", true, "heart", this);
+                let life = new Object("../img/hearts.png", 30, 30, 10, 0, true, "90px 30px", true, "heart", this);
                 life.playAnimation("having-lifes 0.8s linear infinite", "interactable-object 2s linear forwards");
             } else
                 clearInterval(createLifes);
@@ -66,7 +66,7 @@ export default class Game {
         let random = (Math.floor(Math.random() * 4000) + 1000);
         let createCoins = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
-                let coin = new Object("../../img/coin.png", 50, 50, 10, 0, true, "500px 50px", true, "coin", this);
+                let coin = new Object("../img/coin.png", 50, 50, 10, 0, true, "500px 50px", true, "coin", this);
                 coin.playAnimation("coin 0.5s steps(9) infinite", "interactable-object 4s linear forwards");
             } else
                 clearInterval(createCoins);
@@ -80,7 +80,7 @@ export default class Game {
         let random = (Math.floor(Math.random() * 8000) + 1000);
         let createBats = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
-                let bat = new Object("../../img/bat.png", 48, 48, 10, 0, true, "192px 192px", false, "bat", this);
+                let bat = new Object("../img/bat.png", 48, 48, 10, 0, true, "192px 192px", false, "bat", this);
                 bat.playAnimation("bat 0.5s steps(3) infinite", "interactable-object 4s linear forwards");
             } else {
                 clearInterval(createBats);
@@ -96,7 +96,7 @@ export default class Game {
         let random = (Math.floor(Math.random() * 10000) + 1000);
         let createWolfs = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
-                let wolf = new Object("../../img/wolf.png", 64, 32, 95, 0, false, "640px 384px", false, "wolf", this);
+                let wolf = new Object("../img/wolf.png", 64, 32, 95, 0, false, "640px 384px", false, "wolf", this);
                 wolf.playAnimation("wolf 0.5s steps(4) infinite", "interactable-object 3s linear forwards");
             } else {
                 clearInterval(createWolfs);
@@ -112,7 +112,7 @@ export default class Game {
         let random = (Math.floor(Math.random() * 6000) + 3000);
         let createGoblins = setInterval(() => {
             if (!this.finished || this.lifes > 0) {
-                let goblin = new Object("../../img/goblin.png", 60, 60, 92, 0, false, "704px 320px", false, "goblin", this);
+                let goblin = new Object("../img/goblin.png", 60, 60, 92, 0, false, "704px 320px", false, "goblin", this);
                 goblin.playAnimation("goblin 1s steps(7) infinite", "interactable-object 50s linear forwards");
             } else {
                 clearInterval(createGoblins);
